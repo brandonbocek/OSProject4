@@ -15,7 +15,6 @@
 #include <time.h>
 #include <unistd.h>
 
-#define CHANCE_HIGH_PRIORITY 10 // Raising this number increases the chance of a process being created and inserted into queue 1 regardless of quantum. Percent chance -- 10 = 10% chance
 #define IO_INTERRUPT_CHANCE 5 // This number is multipled by 1000000000 to give a time in nanoseconds -- Lower number = more frequent interupts -- Higher number reduces frequency, but does not eliminate them
 #define MASTER_OVERHEAD_TIME 5 // This number is multiplied by 10,000 to give a process sleep time in microseconds. DEFAULT: 5 = .05 second sleep per cycle (spread out over cycle)
 #define MAX_QUANTUM_LENGTH 5 // Quantum length is chosen at random, but this number is the maximum value allowed (in seconds)

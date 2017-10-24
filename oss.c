@@ -10,6 +10,8 @@ static char *zero = "0";
 
 static FILE *fp;
 
+
+/*  Keeps track of what pcbs are already taken */
 static int bitArray[MAX_USER_PROCESSES] = {0};
 static int fileLinesWritten = 0;
 static int movedLast, totalProcesses, totalSchedules, totalTime, totalTimesLooped, totalWaitTime = 0;
@@ -297,18 +299,22 @@ void addToQueue(int queue, pid_t pid, char *word) {
 	int c;
 	
 	int location;
+
+	/* Find the correct location to add to */
 	for(location = 0; location < MAX_USER_PROCESSES; location++) {
 		if(pcb[location]->pid == queueOne->pid[0]) {
 			break;
 		}
 	}
 	
+	/* Saving the time in the queue */
 	if(pcb[location]->alive == 0) {
 		pcb[location]->alive = 1;
 		pcb[location]->inQueueSec = shm->timePassedSec;
 		pcb[location]->inQueueNansec = shm->timePassedNansec;
 	}
 	
+	/* Enqueue the process in the correct queue */
 	switch(queue) {
 		case 1:
 			for(c = 0; c < MAX_USER_PROCESSES; c++) {
@@ -446,7 +452,8 @@ void advanceQueues() {
 
 int createProcess(int processNumber) {
 	int indx;
-	
+
+	/*  Find the first open index in the bit vector */
 	for(indx = 0; indx < MAX_USER_PROCESSES; indx++) {
 		if(bitArray[indx] == 0) {
 			bitArray[indx] = 1;
@@ -454,6 +461,7 @@ int createProcess(int processNumber) {
 		}
 	}
 	
+	/*  Don't create a process if there isn't any room for it */
 	if(indx == MAX_USER_PROCESSES) {
 		return -1;
 	}
@@ -477,12 +485,7 @@ int createProcess(int processNumber) {
 		pcb[indx]->queue = 2;
 	} else {
 		pcb[indx]->queue = 3;
-	}
-	
-	int num = rand() % 101;
-	if(CHANCE_HIGH_PRIORITY > num) {
-		pcb[indx]->queue = 1;
-	}
+	}	
 	
 	return indx;
 }
@@ -650,10 +653,17 @@ int removeFromQueue(int queue, pid_t pid) {
 	}
 }
 
+
+
 void scheduleProcess() {
 	int c;
 	usleep(MASTER_OVERHEAD_TIME * 10000);
+	
+	/* Loop through all the processes in this queue */
 	for(c = 0; c < queueThree->numProcesses; c++) {
+
+
+		/*  If the time in queue is greater than 2 seconds, the process is alive and did not go last */
 		if(((shm->timePassedSec - pcb[queueThree->index[c]]->inQueueSec) > 2) && (pcb[queueThree->index[c]]->moveFlag == 0) && (pcb[queueThree->index[c]]->alive == 1) && (movedLast = 0)) {
 			pcb[queueThree->index[c]]->queue = 2;
 			pcb[queueThree->index[c]]->moveFlag = 1;

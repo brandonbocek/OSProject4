@@ -1,0 +1,51 @@
+PROCESS: #19264 received scheduling message @ 000.852402589
+PROCESS: #19264 entered critical section @ 000.852402589
+PROCESS: #19264 requesting control @ 000.852402589
+PROCESS: #19264 began running @ 000.984402674
+PROCESS: #19264 was interrupted @ 000.556402797
+PROCESS: #19264 relinquished control @ 000.556402797
+PROCESS: #19264 received scheduling message @ 000.401402888
+PROCESS: #19264 entered critical section @ 000.401402888
+PROCESS: #19264 requesting control @ 000.401402888
+PROCESS: #19264 began running @ 000.550556514
+PROCESS: #19264 completed @ 001.087988243
+PROCESS: #19264 exited critical section @ 001.087988243
+PROCESS: #19264 quitting and relinquishing control @ 001.087988243
+PROCESS: #19269 received scheduling message @ 002.464000225
+PROCESS: #19269 entered critical section @ 002.464000225
+PROCESS: #19269 requesting control @ 002.464000225
+PROCESS: #19269 began running @ 002.541000483
+PROCESS: #19269 was interrupted @ 002.537000167
+PROCESS: #19269 relinquished control @ 002.537000167
+PROCESS: #19269 received scheduling message @ 002.997000210
+PROCESS: #19269 entered critical section @ 002.997000210
+PROCESS: #19269 requesting control @ 002.997000210
+PROCESS: #19269 began running @ 002.074000270
+PROCESS: #19269 completed @ 002.548999926
+PROCESS: #19269 exited critical section @ 002.548999926
+PROCESS: #19269 quitting and relinquishing control @ 002.548999926
+PROCESS: #19270 received scheduling message @ 003.920105523
+PROCESS: #19270 entered critical section @ 003.920113553
+PROCESS: #19270 requesting control @ 003.920122621
+PROCESS: #19270 began running @ 004.001994576
+PROCESS: #19270 was interrupted @ 004.994994982
+PROCESS: #19270 relinquished control @ 004.994994982
+PROCESS: #19270 received scheduling message @ 004.839994700
+PROCESS: #19270 entered critical section @ 004.839994700
+PROCESS: #19270 requesting control @ 004.839994700
+PROCESS: #19270 began running @ 004.971994667
+PROCESS: #19270 was interrupted @ 004.676994798
+PROCESS: #19270 relinquished control @ 004.676994798
+PROCESS: #19270 received scheduling message @ 004.122073372
+PROCESS: #19270 entered critical section @ 004.122075091
+PROCESS: #19270 requesting control @ 004.122080908
+PROCESS: #19270 began running @ 004.188994452
+PROCESS: #19270 completed @ 004.404033611
+PROCESS: #19270 exited critical section @ 004.404035027
+PROCESS: #19270 quitting and relinquishing control @ 004.404039578
+PROCESS: #19271 received scheduling message @ 004.558994644
+PROCESS: #19271 entered critical section @ 004.558994644
+PROCESS: #19271 requesting control @ 004.558994644
+PROCESS: #19271 began running @ 004.802994494
+PROCESS: #19271 was interrupted @ 004.403994658
+PROCESS: #19271 relinquished control @ 004.403994658
