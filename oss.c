@@ -30,12 +30,50 @@ int main(int argc, char* argv[]) {
 	signal(SIGINT, signalHandler);
 	signal(SIGSEGV, signalHandler);
 	
-	// Seed the random number generator
-	srand((unsigned)(getpid() ^ time(NULL) ^ ((getpid()) >> MAX_USER_PROCESSES)));
-	
 	// Logfile name and execl binaries path
 	const char *PATH = "./user";
 	char *fileName = "ossLog.out";
+	
+	/* Seeding generator for random numbers */
+	srand((unsigned)(getpid() ^ time(NULL) ^ ((getpid()) >> MAX_USER_PROCESSES)));
+	
+	int opt, linesToWrite = 10000;
+
+	/* Handling command line arguments w/ ./oss  */
+	while ((opt = getopt (argc, argv, "hl:")) != -1) {
+		switch (opt) {
+			case 'h':
+				printHelpMenu();
+				exit(EXIT_SUCCESS);
+					
+			case 'l':
+				/*  Change the name of the file to write to */
+				fileName = optarg;
+				break;
+
+			case 't':
+				/*  Change the time before the master terminates */
+				if(isdigit(*optarg)) {
+					linesToWrite = atoi(optarg);
+				} else {
+					fprintf(stderr, "'Give a number with -t'\n", optarg);
+					exit(EXIT_FAILURE);
+				}
+
+				break;
+				
+			case '?':
+				/* User entered a valid flag but nothing after it */
+				if(optopt == 'l' || optopt == 't') {
+					fprintf(stderr, "-%c needs to have an argument!\n", optopt);
+				} else {
+					fprintf(stderr, "%s is an unrecognized flag\n", argv[optind - 1]);
+				}
+			default:	
+				/* User entered an invalid flag */
+				printHelpMenu();
+		}
+	}
 	
 	// Attach shared memory (clock) and Process Control Blocks
 	if((shmid = shmget(key, sizeof(struct SharedMemory *) * 3, IPC_CREAT | 0666)) < 0) {
@@ -544,7 +582,7 @@ void killAll() {
 	fclose(fp);
 }
 
-void printHelp() {
+void printHelpMenu() {
 	printf("\nCS4760 Project 4 Help!\n");
 	printf("-h flag prints this help message\n");
 	printf("-s [int x] will spawn x slave processes\n");

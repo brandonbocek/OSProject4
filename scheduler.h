@@ -88,7 +88,7 @@ void advanceQueues();
 void clearPCB(int);
 void getProcessStats(int);
 void killAll();
-void printHelp();
+void printHelpMenu();
 void printStats();
 void scheduleProcess();
 void signalHandler();

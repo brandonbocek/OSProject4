@@ -1,7 +1,10 @@
-all: oss user clock log.out
+all: oss user clock log.out logOSS.out
 
 log.out:
 	touch log.out
+
+logOSS.out:
+	touch logOSS.out
 
 oss:
 	gcc -o oss oss.c
