@@ -1,45 +1,84 @@
-USER: #23674 received scheduling message @ 002.242048793
-PROCESS: with pid:23674 entered the critical section at 002.242060083
-USER: #23674 requesting control @ 002.242069281
-USER: #23674 began running @ 002.342361959
-USER: #23674 completed @ 003.619228131
-USER: with pid:23674 exited critical section at 003.619230268
-USER: #23674 quitting and relinquishing control @ 003.619238640
-USER: #23678 received scheduling message @ 004.021491737
-PROCESS: with pid:23678 entered the critical section at 004.21502772
-USER: #23678 requesting control @ 004.021515681
-USER: #23678 began running @ 004.121677835
-USER: #23678 completed @ 005.298885636
-USER: with pid:23678 exited critical section at 005.298888351
-USER: #23678 quitting and relinquishing control @ 005.298896922
-USER: #23683 received scheduling message @ 007.102641220
-PROCESS: with pid:23683 entered the critical section at 007.102650538
-USER: #23683 requesting control @ 007.102657486
-USER: #23683 began running @ 007.202845934
-USER: #23683 completed @ 007.604177552
-USER: with pid:23683 exited critical section at 007.604179184
-USER: #23683 quitting and relinquishing control @ 007.604184781
-USER: #23684 received scheduling message @ 008.006416629
-PROCESS: with pid:23684 entered the critical section at 008.6427343
-USER: #23684 requesting control @ 008.006437296
-USER: #23684 began running @ 008.106627891
-USER: #23684 was interrupted @ 009.266536921
-USER: with pid:23684 ceded control to oss at 009.266555859
-USER: #23684 received scheduling message @ 009.667634943
-PROCESS: with pid:23684 entered the critical section at 009.667637087
-USER: #23684 requesting control @ 009.667643269
-USER: #23684 began running @ 009.767962421
-USER: #23684 completed @ 009.943449873
-USER: with pid:23684 exited critical section at 009.943451665
-USER: #23684 quitting and relinquishing control @ 009.943456949
-USER: #23688 received scheduling message @ 010.345561855
-PROCESS: with pid:23688 entered the critical section at 010.345571937
-USER: #23688 requesting control @ 010.345582266
-USER: #23688 began running @ 010.445742855
-USER: #23688 completed @ 010.472499834
-USER: with pid:23688 exited critical section at 010.472500952
-USER: #23688 quitting and relinquishing control @ 010.472506579
-USER: #23689 received scheduling message @ 010.874654109
-PROCESS: with pid:23689 entered the critical section at 010.874665176
-USER: #23689 requesting control @ 010.874675472
-USER: #23689 began running @ 010.975058474
+USER: #30250 received scheduling message @ 000.054534743
+USER: with pid:30250 entered the critical section at 000.54534743
+USER: #30250 requesting control @ 000.054534743
+USER: #30250 began running @ 000.180563720
+USER: #30250 completed @ 000.185534709
+USER: with pid:30250 exited critical section at 000.185534709
+USER: #30250 quitting and relinquishing control @ 000.185534709
+USER: #30251 received scheduling message @ 002.223000438
+USER: with pid:30251 entered the critical section at 002.223000438
+USER: #30251 requesting control @ 002.223000438
+USER: #30251 began running @ 002.345000075
+USER: #30251 completed @ 002.358021417
+USER: with pid:30251 exited critical section at 002.358022531
+USER: #30251 quitting and relinquishing control @ 002.358028550
+USER: #30252 received scheduling message @ 003.150000119
+USER: with pid:30252 entered the critical section at 003.150000119
+USER: #30252 requesting control @ 003.150000119
+USER: #30252 began running @ 003.267000019
+USER: #30252 completed @ 003.277999954
+USER: with pid:30252 exited critical section at 003.277999954
+USER: #30252 quitting and relinquishing control @ 003.277999954
+USER: #30264 received scheduling message @ 004.146065229
+USER: with pid:30264 entered the critical section at 004.146072986
+USER: #30264 requesting control @ 004.146085140
+USER: #30264 began running @ 004.246319744
+USER: #30264 completed @ 004.256419193
+USER: with pid:30264 exited critical section at 004.256420215
+USER: #30264 quitting and relinquishing control @ 004.256425613
+USER: #30276 received scheduling message @ 006.410142180
+USER: with pid:30276 entered the critical section at 006.410152527
+USER: #30276 requesting control @ 006.410161822
+USER: #30276 began running @ 006.510382583
+USER: #30276 completed @ 006.520495742
+USER: with pid:30276 exited critical section at 006.520496927
+USER: #30276 quitting and relinquishing control @ 006.520502528
+USER: #30280 received scheduling message @ 008.324549911
+USER: with pid:30280 entered the critical section at 008.324570961
+USER: #30280 requesting control @ 008.324583031
+USER: #30280 began running @ 008.424743325
+USER: #30280 completed @ 008.434851701
+USER: with pid:30280 exited critical section at 008.434852816
+USER: #30280 quitting and relinquishing control @ 008.434858357
+USER: #30287 received scheduling message @ 010.238301115
+USER: with pid:30287 entered the critical section at 010.238311633
+USER: #30287 requesting control @ 010.238321688
+USER: #30287 began running @ 010.338506450
+USER: #30287 completed @ 010.348614161
+USER: with pid:30287 exited critical section at 010.348615301
+USER: #30287 quitting and relinquishing control @ 010.348621001
+USER: #30289 received scheduling message @ 011.101247857
+USER: with pid:30289 entered the critical section at 011.101324118
+USER: #30289 requesting control @ 011.101341176
+USER: #30289 began running @ 011.201457528
+USER: #30289 completed @ 011.211587299
+USER: with pid:30289 exited critical section at 011.211588836
+USER: #30289 quitting and relinquishing control @ 011.211596938
+USER: #30290 received scheduling message @ 011.613646745
+USER: with pid:30290 entered the critical section at 011.613657803
+USER: #30290 requesting control @ 011.613670813
+USER: #30290 began running @ 011.713808540
+USER: #30290 completed @ 011.723921686
+USER: with pid:30290 exited critical section at 011.723922789
+USER: #30290 quitting and relinquishing control @ 011.723928632
+USER: #30294 received scheduling message @ 013.176897493
+USER: with pid:30294 entered the critical section at 013.176907670
+USER: #30294 requesting control @ 013.176918033
+USER: #30294 began running @ 013.277017590
+USER: #30294 completed @ 013.287116500
+USER: with pid:30294 exited critical section at 013.287117517
+USER: #30294 quitting and relinquishing control @ 013.287122721
+USER: #30298 received scheduling message @ 015.440881094
+USER: with pid:30298 entered the critical section at 015.440881094
+USER: #30298 requesting control @ 015.440881094
+USER: #30298 began running @ 015.541082616
+USER: #30298 completed @ 015.551216057
+USER: with pid:30298 exited critical section at 015.551217282
+USER: #30298 quitting and relinquishing control @ 015.551222992
+USER: #30299 received scheduling message @ 015.953701909
+USER: with pid:30299 entered the critical section at 015.953710997
+USER: #30299 requesting control @ 015.953720488
+USER: #30299 began running @ 015.053878047
+USER: #30299 completed @ 015.063983484
+USER: with pid:30299 exited critical section at 015.63984606
+USER: #30299 quitting and relinquishing control @ 015.063990447

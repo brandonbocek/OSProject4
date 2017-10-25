@@ -27,7 +27,7 @@
 
 #define IO_INTERRUPT_CHANCE 5 // This number is multipled by 1000000000 to give a time in nanoseconds -- Lower number = more frequent interupts -- Higher number reduces frequency, but does not eliminate them
 #define MASTER_OVERHEAD_TIME 5 // This number is multiplied by 10,000 to give a process sleep time in microseconds. DEFAULT: 5 = .05 second sleep per cycle (spread out over cycle)
-#define MAX_QUANTUM_LENGTH 5 // Quantum length is chosen at random, but this number is the maximum value allowed (in seconds)
+#define QUANTUM_LENGTH 0.01 // Quantum length is chosen at random, but this number is the maximum value allowed (in seconds)
 #define MAX_USER_PROCESSES 18 // Changes max number of children process spawns
 #define MSGSZ 64
 #define PROCESS_SPAWN_RATE 3 // How frequent processes spawn -- calculated by rand() % PROCESS_SPAWN_RATE and then sleeping for the result in seconds
@@ -51,6 +51,7 @@ struct ProcessControlBlock {
 	int pid;
 	int processNumber;
 	int queue;
+	int randToDo;
 	
 	unsigned long long int cpuTime;
 	unsigned long long int creationNansec;

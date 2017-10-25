@@ -1,7 +1,6 @@
-
 #include "scheduler.h"
 
-const static unsigned long long int max = MAX_QUANTUM_LENGTH * 1E9;
+const static unsigned long long int quantumLength = QUANTUM_LENGTH * 1E9;
 
 static char *added = "Added";
 static char *moved = "Moved";
@@ -85,7 +84,7 @@ int main(int argc, char* argv[]) {
     }
 	
 	/*  Set the file pointer to the correct file */
-	fp = fopen(filename, "a");
+	fp = fopen(filename, "w");
 	if(fp == NULL) {
 		printf("ERROR: Failed to open file.");
 		killAll();
@@ -464,7 +463,11 @@ int createProcess(int processNumber) {
 	pcb[indx]->index = indx;
 	pcb[indx]->pid = 0;
 	pcb[indx]->processNumber = processNumber;
-	pcb[indx]->cpuTime = pcb[indx]->quantum = rand() % max + 1;
+	
+	/*  Generate random event 0-3 */
+	pcb[indx]->randToDo = rand() % 3 + 0;
+	
+	pcb[indx]->cpuTime = pcb[indx]->quantum = quantumLength;
 	pcb[indx]->queue = 0;
 	pcb[indx]->creationSec = shm->timePassedSec;
 	pcb[indx]->creationNansec = shm->timePassedNansec;
@@ -573,11 +576,10 @@ int removeFromQueue(int queue, pid_t pid) {
 					
 					totalWaitTime += (shm->timePassedSec - pcb[tmp]->inQueueSec);
 					totalSchedules++;
+					
 					printf("OSS: Process #%i was in queue for %03i.%09lu seconds\n", queueOne->pid[c], (shm->timePassedSec - pcb[tmp]->inQueueSec), temp);
-					if(fileLinesWritten < 10000) {
-						fprintf(fp, "OSS: Process #%i was in queue for %03i.%09lu seconds\n", queueOne->pid[c], (shm->timePassedSec - pcb[tmp]->inQueueSec), temp);
-						fileLinesWritten++;
-					}
+					fprintf(fp, "OSS: Process #%i was in queue for %03i.%09lu seconds\n", queueOne->pid[c], (shm->timePassedSec - pcb[tmp]->inQueueSec), temp);
+					
 					pcb[tmp]->inQueueSec = pcb[tmp]->inQueueNansec = shm->timePassedSec;
 					pcb[tmp]->moveFlag = 0;
 					pcb[tmp]->queue = 0;
@@ -635,44 +637,41 @@ void scheduleProcess() {
 
 
 		/*  If the time in queue is greater than 2 seconds, the process is alive and did not go last */
-		if(((shm->timePassedSec - pcb[queueThree->index[i]]->inQueueSec) > 2) && (pcb[queueThree->index[i]]->moveFlag == 0) && (pcb[queueThree->index[i]]->alive == 1)) {
+		if((shm->timePassedSec - pcb[queueThree->index[i]]->inQueueSec) > BETA*(((double)totalWaitTime / (double)totalSchedules)) && (pcb[queueThree->index[i]]->moveFlag == 0) && (pcb[queueThree->index[i]]->alive == 1)) {
 			pcb[queueThree->index[i]]->queue = 2;
 			pcb[queueThree->index[i]]->moveFlag = 1;
-			
 			usleep(MASTER_OVERHEAD_TIME * 10000);
 
 		/*  Move starving process from queue 3 to queue 2 */	
-			addToQueue(2, queueThree->pid[i], "Moved Starving");
+			addToQueue(2, queueThree->pid[i], "Shifted 3 to 2");
 			removeFromQueue(3, queueThree->pid[i]);
 			return;
 		}
 	}
 	
 	for(i = 0; i < queueTwo->numProcesses; i++) {
-		if(((shm->timePassedSec - pcb[queueTwo->index[i]]->inQueueSec) > 2) && (pcb[queueTwo->index[i]]->moveFlag == 0) && (pcb[queueTwo->index[i]]->alive == 1)) {
+		if((shm->timePassedSec - pcb[queueTwo->index[i]]->inQueueSec) > ALPHA*(((double)totalWaitTime / (double)totalSchedules)) && (pcb[queueTwo->index[i]]->moveFlag == 0) && (pcb[queueTwo->index[i]]->alive == 1)) {
 			pcb[queueTwo->index[i]]->queue = 1;
 			pcb[queueTwo->index[i]]->moveFlag = 1;
 			
 			usleep(MASTER_OVERHEAD_TIME * 10000);
 		/*  Move starving process from queue 2 to queue 1 */
-			addToQueue(1, queueTwo->pid[i], "Moved Starving");
+			addToQueue(1, queueTwo->pid[i], "Shifted 2 to 1");
 			removeFromQueue(2, queueTwo->pid[i]);
 			return;
 		}
 	}
 	
 
-	/* If the first process in the queue is present */
+	/* Schedules from the highest priority queue with a process */
 	if(queueOne->pid[0] > 0) {	
 		shm->scheduledCount++;
-		
 		msgbuff_send.mtype = queueOne->pid[0];
 		sprintf(msgbuff_send.mtext, "%i", shm->scheduledCount);
-		printf("OSS: Scheduled #%i @ %03i.%09lu\n", msgbuff_send.mtype, shm->timePassedSec, shm->timePassedNansec);
-		fprintf(fp, "OSS: Scheduled #%i @ %03i.%09lu\n", msgbuff_send.mtype, shm->timePassedSec, shm->timePassedNansec);
+		printf("OSS: Scheduled process with pid:%i at %03i.%05lu\n", msgbuff_send.mtype, shm->timePassedSec, shm->timePassedNansec);
+		fprintf(fp, "OSS: Scheduled process with pid:%i at %03i.%05lu\n", msgbuff_send.mtype, shm->timePassedSec, shm->timePassedNansec);
 		
 		if(msgsnd(msgid_sending, &msgbuff_send, MSGSZ, IPC_NOWAIT) < 0) {
-			perror("msgsnd");
 			printf("The reply to child did not send\n");
 			signalHandler();
 		}
@@ -682,20 +681,40 @@ void scheduleProcess() {
 		usleep(MASTER_OVERHEAD_TIME * 10000);
 		return;
 
-	} else if(queueTwo->pid[0] > 0) {
-		addToQueue(1, queueTwo->pid[0], moved);
+	} else if(queueTwo->pid[0] > 0) {	
+		shm->scheduledCount++;
+		msgbuff_send.mtype = queueTwo->pid[0];
+		sprintf(msgbuff_send.mtext, "%i", shm->scheduledCount);
+		printf("OSS: Scheduled process with pid:%i at %03i.%05lu\n", msgbuff_send.mtype, shm->timePassedSec, shm->timePassedNansec);
+		fprintf(fp, "OSS: Scheduled process with pid:%i at %03i.%05lu\n", msgbuff_send.mtype, shm->timePassedSec, shm->timePassedNansec);
+		
+		if(msgsnd(msgid_sending, &msgbuff_send, MSGSZ, IPC_NOWAIT) < 0) {
+			printf("The reply to child did not send\n");
+			signalHandler();
+		}
 		pcb[queueOne->index[0]]->queue = 1;
 		removeFromQueue(2, queueTwo->pid[0]);
 		usleep(MASTER_OVERHEAD_TIME * 10000);
 		return;
 		
 	} else if(queueThree->pid[0] > 0) {
-		addToQueue(2, queueThree->pid[0], moved);
+		shm->scheduledCount++;
+		msgbuff_send.mtype = queueTwo->pid[0];
+		sprintf(msgbuff_send.mtext, "%i", shm->scheduledCount);
+		printf("OSS: Scheduled process with pid:%i at %03i.%05lu\n", msgbuff_send.mtype, shm->timePassedSec, shm->timePassedNansec);
+		fprintf(fp, "OSS: Scheduled process with pid:%i at %03i.%05lu\n", msgbuff_send.mtype, shm->timePassedSec, shm->timePassedNansec);
+		
+		if(msgsnd(msgid_sending, &msgbuff_send, MSGSZ, IPC_NOWAIT) < 0) {
+			printf("The reply to child did not send\n");
+			signalHandler();
+		}
+
 		pcb[queueOne->index[0]]->queue = 2;
 		removeFromQueue(3, queueThree->pid[0]);
 		usleep(MASTER_OVERHEAD_TIME * 10000);
 		return;
 	}
+
 }
 
 /* Completely Terminates the program and prints final stats */

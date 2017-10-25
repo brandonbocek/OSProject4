@@ -123,7 +123,7 @@ beforeTheWait:
 	shm->turn = i; 
 	
 	/////////////Critical Section Begins/////////////////
-	fprintf(fp, "PROCESS: with pid:%i entered the critical section at %03i.%05lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
+	fprintf(fp, "USER: with pid:%i entered the critical section at %03i.%05lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
 	
 	msgbuff_send.mtype = 1;
 	sprintf(msgbuff_send.mtext, "%i", getpid());
@@ -143,7 +143,11 @@ beforeTheWait:
 	fprintf(fp, "USER: #%i began running @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
 	
 	// If quantum > running time, this process cant finish in this iteration and must be requeued
-	unsigned long long int runningTime = rand() % (50000000 - min) + min;	
+	unsigned long long int runningTime = rand() % (50000000 - min) + min;
+
+
+	//EDIT
+	//unsigned long long int timeRunning = pcb[i]->		
 	if(pcb[i]->quantum > runningTime) {
 		usleep((runningTime / 1000));
 		

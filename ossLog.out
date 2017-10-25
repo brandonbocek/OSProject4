@@ -1,65 +1,132 @@
-OSS: Created Process with ID:23674 at 002.141515500... PROCESS #1 @ INDEX: 1
-OSS: Added #23674 to Queue #1 @ 002.191749642
-OSS: Scheduled #23674 @ 002.241910870
-OSS: Process #23674 was in queue for 000.050306599 seconds
-OSS: Handing control to #23674 process 002.292104105
-OSS: Taking control back from process #23674 @ 003.620382343
-OSS: Terminating process #23674 @ 003.720648014
+OSS: Created Process with ID:30250 at 000.000000000... PROCESS #1 @ INDEX: 1
+OSS: Added #30250 to Queue #1 @ 000.010534736
+OSS: Scheduled process with pid:30250 at 000.54534743
+OSS: Process #30250 was in queue for 000.054534743 seconds
+OSS: Handing control to #30250 process 000.098534623
+OSS: Taking control back from process #30250 @ 000.185534709
+OSS: Terminating process #30250 @ 001.061982442
 **********************************************
-	Process with PID:23674 - Number of CPU Seconds used:1.276707 seconds
-	This process was in the system for a total of:1.1461067776 seconds
+	Process with PID:30250 - Number of CPU Seconds used:0.010000 seconds
+	This process was in the system for a total of:1.490192896 seconds
 **********************************************
-OSS: Created Process with ID:23678 at 003.921036461... PROCESS #2 @ INDEX: 1
-OSS: Added #23678 to Queue #1 @ 003.971230133
-OSS: Scheduled #23678 @ 004.021371535
-OSS: Process #23678 was in queue for 002.021395108 seconds
-OSS: Handing control to #23678 process 004.071517908
-OSS: Taking control back from process #23678 @ 005.300082038
-OSS: Terminating process #23678 @ 005.400314370
+OSS: Created Process with ID:30251 at 002.116142370... PROCESS #2 @ INDEX: 1
+OSS: Added #30251 to Queue #1 @ 002.173201466
+OSS: Scheduled process with pid:30251 at 002.223000438
+OSS: Process #30251 was in queue for 002.223000438 seconds
+OSS: Handing control to #30251 process 002.274000157
+OSS: Taking control back from process #30251 @ 002.365000097
+OSS: Terminating process #30251 @ 002.468000006
 **********************************************
-	Process with PID:23678 - Number of CPU Seconds used:1.176994 seconds
-	This process was in the system for a total of:2.1461067776 seconds
+	Process with PID:30251 - Number of CPU Seconds used:0.010000 seconds
+	This process was in the system for a total of:0.490192896 seconds
 **********************************************
-OSS: Created Process with ID:23683 at 007.002093088... PROCESS #3 @ INDEX: 1
-OSS: Added #23683 to Queue #1 @ 007.052389510
-OSS: Scheduled #23683 @ 007.102521159
-OSS: Process #23683 was in queue for 003.102544700 seconds
-OSS: Handing control to #23683 process 007.152661166
-OSS: Taking control back from process #23683 @ 007.605427693
-OSS: Terminating process #23683 @ 007.705706163
+OSS: Created Process with ID:30252 at 003.036123177... PROCESS #3 @ INDEX: 1
+OSS: Added #30252 to Queue #1 @ 003.097030282
+OSS: Scheduled process with pid:30252 at 003.149035798
+OSS: Process #30252 was in queue for 001.149042761 seconds
+OSS: Handing control to #30252 process 003.210037502
+OSS: Taking control back from process #30252 @ 003.296027176
+OSS: Terminating process #30252 @ 003.403034451
 **********************************************
-	Process with PID:23683 - Number of CPU Seconds used:0.401198 seconds
-	This process was in the system for a total of:0.1461067776 seconds
+	Process with PID:30252 - Number of CPU Seconds used:0.010000 seconds
+	This process was in the system for a total of:0.490192896 seconds
 **********************************************
-OSS: Created Process with ID:23684 at 007.905942293... PROCESS #4 @ INDEX: 1
-OSS: Added #23684 to Queue #1 @ 007.956139742
-OSS: Scheduled #23684 @ 008.006289546
-OSS: Process #23684 was in queue for 001.006318902 seconds
-OSS: Handing control to #23684 process 008.056440482
-OSS: Taking control back from process #23684 @ 009.266652214
-OSS: Re-Added #23684 to Queue #1 @ 009.316904159
-OSS: Scheduled #23684 @ 009.667574251
-OSS: Process #23684 was in queue for 001.667593410 seconds
-OSS: Handing control to #23684 process 009.717777651
-OSS: Taking control back from process #23684 @ 009.944570619
-OSS: Terminating process #23684 @ 010.044871602
+OSS: Created Process with ID:30264 at 004.045699340... PROCESS #4 @ INDEX: 1
+OSS: Added #30264 to Queue #1 @ 004.095883471
+OSS: Scheduled process with pid:30264 at 004.145983550
+OSS: Process #30264 was in queue for 001.145997865 seconds
+OSS: Handing control to #30264 process 004.196113793
+OSS: Taking control back from process #30264 @ 004.257545837
+OSS: Terminating process #30264 @ 004.357811355
 **********************************************
-	Process with PID:23684 - Number of CPU Seconds used:1.335180 seconds
-	This process was in the system for a total of:2.1461067776 seconds
+	Process with PID:30264 - Number of CPU Seconds used:0.010000 seconds
+	This process was in the system for a total of:0.490192896 seconds
 **********************************************
-OSS: Created Process with ID:23688 at 010.245136231... PROCESS #5 @ INDEX: 1
-OSS: Added #23688 to Queue #1 @ 010.295325009
-OSS: Scheduled #23688 @ 010.345447195
-OSS: Process #23688 was in queue for 001.345469134 seconds
-OSS: Handing control to #23688 process 010.395582196
-OSS: Taking control back from process #23688 @ 010.473621696
-OSS: Terminating process #23688 @ 010.573864425
+OSS: Created Process with ID:30276 at 006.309712903... PROCESS #5 @ INDEX: 1
+OSS: Added #30276 to Queue #1 @ 006.359896672
+OSS: Scheduled process with pid:30276 at 006.410027285
+OSS: Process #30276 was in queue for 002.410053814 seconds
+OSS: Handing control to #30276 process 006.460210057
+OSS: Taking control back from process #30276 @ 006.521619979
+OSS: Terminating process #30276 @ 006.621868555
 **********************************************
-	Process with PID:23688 - Number of CPU Seconds used:0.026647 seconds
-	This process was in the system for a total of:0.1461067776 seconds
+	Process with PID:30276 - Number of CPU Seconds used:0.010000 seconds
+	This process was in the system for a total of:0.490192896 seconds
 **********************************************
-OSS: Created Process with ID:23689 at 010.774174767... PROCESS #6 @ INDEX: 1
-OSS: Added #23689 to Queue #1 @ 010.824406237
-OSS: Scheduled #23689 @ 010.874541474
-OSS: Process #23689 was in queue for 000.874566542 seconds
-OSS: Handing control to #23689 process 010.924781982
+OSS: Created Process with ID:30280 at 008.224094928... PROCESS #6 @ INDEX: 1
+OSS: Added #30280 to Queue #1 @ 008.274277741
+OSS: Scheduled process with pid:30280 at 008.324394363
+OSS: Process #30280 was in queue for 002.324417756 seconds
+OSS: Handing control to #30280 process 008.374535235
+OSS: Taking control back from process #30280 @ 008.435981665
+OSS: Terminating process #30280 @ 008.536205798
+**********************************************
+	Process with PID:30280 - Number of CPU Seconds used:0.010000 seconds
+	This process was in the system for a total of:0.490192896 seconds
+**********************************************
+OSS: Created Process with ID:30287 at 010.137890536... PROCESS #7 @ INDEX: 1
+OSS: Added #30287 to Queue #1 @ 010.188076689
+OSS: Scheduled process with pid:30287 at 010.238187383
+OSS: Process #30287 was in queue for 002.238206871 seconds
+OSS: Handing control to #30287 process 010.288351037
+OSS: Taking control back from process #30287 @ 010.349737927
+OSS: Terminating process #30287 @ 010.450075397
+**********************************************
+	Process with PID:30287 - Number of CPU Seconds used:0.010000 seconds
+	This process was in the system for a total of:0.490192896 seconds
+**********************************************
+OSS: Created Process with ID:30289 at 011.000702624... PROCESS #8 @ INDEX: 1
+OSS: Added #30289 to Queue #1 @ 011.050871126
+OSS: Scheduled process with pid:30289 at 011.101084659
+OSS: Process #30289 was in queue for 001.101109033 seconds
+OSS: Handing control to #30289 process 011.151293319
+OSS: Taking control back from process #30289 @ 011.212711154
+OSS: Terminating process #30289 @ 011.312982636
+**********************************************
+	Process with PID:30289 - Number of CPU Seconds used:0.010000 seconds
+	This process was in the system for a total of:0.490192896 seconds
+**********************************************
+OSS: Created Process with ID:30290 at 011.513254077... PROCESS #9 @ INDEX: 1
+OSS: Added #30290 to Queue #1 @ 011.563438352
+OSS: Scheduled process with pid:30290 at 011.613548805
+OSS: Process #30290 was in queue for 000.613567420 seconds
+OSS: Handing control to #30290 process 011.663677260
+OSS: Taking control back from process #30290 @ 011.725037765
+OSS: Terminating process #30290 @ 011.825249780
+**********************************************
+	Process with PID:30290 - Number of CPU Seconds used:0.010000 seconds
+	This process was in the system for a total of:0.490192896 seconds
+**********************************************
+OSS: Created Process with ID:30294 at 013.076446017... PROCESS #10 @ INDEX: 1
+OSS: Added #30294 to Queue #1 @ 013.126629400
+OSS: Scheduled process with pid:30294 at 013.176746149
+OSS: Process #30294 was in queue for 002.176766541 seconds
+OSS: Handing control to #30294 process 013.226866626
+OSS: Taking control back from process #30294 @ 013.288234701
+OSS: Terminating process #30294 @ 013.388485053
+**********************************************
+	Process with PID:30294 - Number of CPU Seconds used:0.010000 seconds
+	This process was in the system for a total of:0.490192896 seconds
+**********************************************
+OSS: Created Process with ID:30298 at 015.340508030... PROCESS #11 @ INDEX: 1
+OSS: Added #30298 to Queue #1 @ 015.390691848
+OSS: Scheduled process with pid:30298 at 015.440794004
+OSS: Process #30298 was in queue for 002.440807573 seconds
+OSS: Handing control to #30298 process 015.490909082
+OSS: Taking control back from process #30298 @ 015.552328620
+OSS: Terminating process #30298 @ 015.652728143
+**********************************************
+	Process with PID:30298 - Number of CPU Seconds used:0.010000 seconds
+	This process was in the system for a total of:0.490192896 seconds
+**********************************************
+OSS: Created Process with ID:30299 at 015.853180416... PROCESS #12 @ INDEX: 1
+OSS: Added #30299 to Queue #1 @ 015.903398682
+OSS: Scheduled process with pid:30299 at 015.953573002
+OSS: Process #30299 was in queue for 000.953586959 seconds
+OSS: Handing control to #30299 process 015.003690140
+OSS: Taking control back from process #30299 @ 015.065138804
+OSS: Terminating process #30299 @ 015.165483948
+**********************************************
+	Process with PID:30299 - Number of CPU Seconds used:0.010000 seconds
+	This process was in the system for a total of:0.490192896 seconds
+**********************************************
