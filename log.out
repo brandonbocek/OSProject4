@@ -1,64 +1,78 @@
-PROCESS: #5549 received scheduling message @ 001.417442585
-PROCESS: #5549 entered critical section @ 001.417453875
-PROCESS: #5549 requesting control @ 001.417464786
-PROCESS: #5549 began running @ 001.517581694
-PROCESS: #5549 completed @ 002.092308441
-PROCESS: #5549 exited critical section @ 002.092310306
-PROCESS: #5549 quitting and relinquishing control @ 002.092315070
-PROCESS: #5551 received scheduling message @ 002.494591690
-PROCESS: #5551 entered critical section @ 002.494601372
-PROCESS: #5551 requesting control @ 002.494611738
-PROCESS: #5551 began running @ 002.594765096
-PROCESS: #5551 was interrupted @ 003.247535673
-PROCESS: #5551 relinquished control @ 003.247547859
-PROCESS: #5551 received scheduling message @ 004.048833042
-PROCESS: #5551 entered critical section @ 004.048834655
-PROCESS: #5551 requesting control @ 004.048840136
-PROCESS: #5551 began running @ 004.149041888
-PROCESS: #5551 was interrupted @ 004.760046270
-PROCESS: #5551 relinquished control @ 004.760058230
-PROCESS: #5551 received scheduling message @ 005.161064109
-PROCESS: #5551 entered critical section @ 005.161065639
-PROCESS: #5551 requesting control @ 005.161071099
-PROCESS: #5551 began running @ 005.261361061
-PROCESS: #5551 completed @ 005.628297922
-PROCESS: #5551 exited critical section @ 005.628299785
-PROCESS: #5551 quitting and relinquishing control @ 005.628304372
-PROCESS: #5572 received scheduling message @ 006.030401928
-PROCESS: #5572 entered critical section @ 006.030416159
-PROCESS: #5572 requesting control @ 006.030431257
-PROCESS: #5572 began running @ 006.130593641
-PROCESS: #5572 completed @ 006.469779443
-PROCESS: #5572 exited critical section @ 006.469781273
-PROCESS: #5572 quitting and relinquishing control @ 006.469786078
-PROCESS: #5573 received scheduling message @ 006.871706719
-PROCESS: #5573 entered critical section @ 006.871720134
-PROCESS: #5573 requesting control @ 006.871735091
-PROCESS: #5573 began running @ 006.971896436
-PROCESS: #5573 completed @ 007.669838259
-PROCESS: #5573 exited critical section @ 007.669840051
-PROCESS: #5573 quitting and relinquishing control @ 007.669844721
-PROCESS: #5574 received scheduling message @ 008.072227004
-PROCESS: #5574 entered critical section @ 008.072239562
-PROCESS: #5574 requesting control @ 008.072253788
-PROCESS: #5574 began running @ 008.172461960
-PROCESS: #5574 was interrupted @ 009.105571739
-PROCESS: #5574 relinquished control @ 009.105596427
-PROCESS: #5574 received scheduling message @ 009.506376281
-PROCESS: #5574 entered critical section @ 009.506378514
-PROCESS: #5574 requesting control @ 009.506387262
-PROCESS: #5574 began running @ 009.606758297
-PROCESS: #5574 completed @ 009.693525602
-PROCESS: #5574 exited critical section @ 009.693527633
-PROCESS: #5574 quitting and relinquishing control @ 009.693532378
-PROCESS: #5575 received scheduling message @ 010.446166145
-PROCESS: #5575 entered critical section @ 010.446176651
-PROCESS: #5575 requesting control @ 010.446187947
-PROCESS: #5575 began running @ 010.546429334
-PROCESS: #5575 completed @ 010.610257831
-PROCESS: #5575 exited critical section @ 010.610259690
-PROCESS: #5575 quitting and relinquishing control @ 010.610264541
-PROCESS: #5576 received scheduling message @ 011.012413992
-PROCESS: #5576 entered critical section @ 011.012424602
-PROCESS: #5576 requesting control @ 011.012435860
-PROCESS: #5576 began running @ 011.112624531
+USER: #6374 received scheduling message @ 002.172648610
+PROCESS: #6374 entered critical section @ 002.172661906
+USER: #6374 requesting control @ 002.172674214
+USER: #6374 began running @ 002.273174070
+USER: #6374 completed @ 002.798105387
+PROCESS: #6374 exited critical section @ 002.798106981
+USER: #6374 quitting and relinquishing control @ 002.798110509
+USER: #6380 received scheduling message @ 003.207790930
+PROCESS: #6380 entered critical section @ 003.207804520
+USER: #6380 requesting control @ 003.207818499
+USER: #6380 began running @ 003.307938699
+USER: #6380 completed @ 003.855132465
+PROCESS: #6380 exited critical section @ 003.855134402
+USER: #6380 quitting and relinquishing control @ 003.855138027
+USER: #6382 received scheduling message @ 005.308446142
+PROCESS: #6382 entered critical section @ 005.308459929
+USER: #6382 requesting control @ 005.308469906
+USER: #6382 began running @ 005.408664170
+USER: #6382 was interrupted @ 006.333273444
+USER: #6382 relinquished control @ 006.333291634
+USER: #6382 received scheduling message @ 008.625035718
+PROCESS: #6382 entered critical section @ 008.625038264
+USER: #6382 requesting control @ 008.625043206
+USER: #6382 began running @ 008.725247777
+USER: #6382 completed @ 009.237219307
+PROCESS: #6382 exited critical section @ 009.237221167
+USER: #6382 quitting and relinquishing control @ 009.237224544
+USER: #6389 received scheduling message @ 009.639368754
+PROCESS: #6389 entered critical section @ 009.639386048
+USER: #6389 requesting control @ 009.639401530
+USER: #6389 began running @ 009.739559386
+USER: #6389 completed @ 009.841333593
+PROCESS: #6389 exited critical section @ 009.841336005
+USER: #6389 quitting and relinquishing control @ 009.841341611
+USER: #6387 received scheduling message @ 007.135285128
+PROCESS: #6387 entered critical section @ 007.135297157
+USER: #6387 requesting control @ 007.135309995
+USER: #6387 began running @ 007.235508030
+USER: #6387 was interrupted @ 007.822936724
+USER: #6387 relinquished control @ 007.822947970
+USER: #6387 received scheduling message @ 010.243198800
+PROCESS: #6387 entered critical section @ 010.243200977
+USER: #6387 requesting control @ 010.243208512
+USER: #6387 began running @ 010.343435049
+USER: #6387 was interrupted @ 010.986000028
+USER: #6387 relinquished control @ 010.986000028
+USER: #6387 received scheduling message @ 013.986688390
+PROCESS: #6387 entered critical section @ 013.986690033
+USER: #6387 requesting control @ 013.986695626
+USER: #6387 began running @ 014.087030119
+USER: #6387 completed @ 014.314932346
+PROCESS: #6387 exited critical section @ 014.314934131
+USER: #6387 quitting and relinquishing control @ 014.314937488
+USER: #6392 received scheduling message @ 011.390407460
+PROCESS: #6392 entered critical section @ 011.390418551
+USER: #6392 requesting control @ 011.390432682
+USER: #6392 began running @ 011.490633040
+USER: #6392 was interrupted @ 012.087122010
+USER: #6392 relinquished control @ 012.087133177
+USER: #6392 received scheduling message @ 014.724000024
+PROCESS: #6392 entered critical section @ 014.724000024
+USER: #6392 requesting control @ 014.724000024
+USER: #6392 began running @ 014.824391008
+USER: #6392 completed @ 015.183686072
+PROCESS: #6392 exited critical section @ 015.183688156
+USER: #6392 quitting and relinquishing control @ 015.183691889
+USER: #6393 received scheduling message @ 012.488134115
+PROCESS: #6393 entered critical section @ 012.488145540
+USER: #6393 requesting control @ 012.488156674
+USER: #6393 began running @ 012.588305105
+USER: #6393 was interrupted @ 013.184828127
+USER: #6393 relinquished control @ 013.184841562
+USER: #6397 received scheduling message @ 015.586098788
+PROCESS: #6397 entered critical section @ 015.586109421
+USER: #6397 requesting control @ 015.586119103
+USER: #6397 began running @ 015.686136991
+USER: #6397 was interrupted @ 016.550448978
+USER: #6397 relinquished control @ 016.550462577

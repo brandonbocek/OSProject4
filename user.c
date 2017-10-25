@@ -86,10 +86,10 @@ int main(int argc, char* argv[]) {
 backToWait:
 	while(msgrcv(msgid_receiving, &msgbuff_receive, MSGSZ, getpid(), 0) < 0);
 	while(shm->childControl);
-	printf("\t\t\tPROCESS: #%i received scheduling message @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
+	printf("USER: #%i received scheduling message @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
 	
 	if(fileLinesWritten < 10000) {
-		fprintf(fp, "PROCESS: #%i received scheduling message @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
+		fprintf(fp, "USER: #%i received scheduling message @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
 		fileLinesWritten++;
 	}
 
@@ -133,23 +133,22 @@ backToWait:
 	sprintf(msgbuff_send.mtext, "%i", getpid());
 	
 	if(msgsnd(msgid_sending, &msgbuff_send, MSGSZ, IPC_NOWAIT) < 0) {
-		perror("msgsnd");
-		printf("The reply to child did not send\n");
+		printf("ERROR: the msg to oss failed to send\n");
 		signalHandler();
 	}
 	
 	// Request OSS to stop
-	printf("\t\t\t\tPROCESS: #%i requesting control @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
+	printf("USER: #%i requesting control @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
 	if(fileLinesWritten < 10000) {
-		fprintf(fp, "PROCESS: #%i requesting control @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
+		fprintf(fp, "USER: #%i requesting control @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
 		fileLinesWritten++;
 	}
 	
 	// Begin running when OSS stops
 	while(msgrcv(msgid_critical, &msgbuff_critical, MSGSZ, 1, 0) < 0);
-	printf("\t\t\t\t\tPROCESS: #%i began running @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
+	printf("USER: #%i began running @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
 	if(fileLinesWritten < 10000) {
-		fprintf(fp, "PROCESS: #%i began running @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
+		fprintf(fp, "USER: #%i began running @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
 		fileLinesWritten++;
 	}
 	
@@ -164,9 +163,9 @@ backToWait:
 		sprintf(msgbuff_send.mtext, "%i", statusOne);
 		
 		// **Exit Critical Section**
-		printf("\t\t\t\t\tPROCESS: #%i was interrupted @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
+		printf("USER: #%i was interrupted @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
 		if(fileLinesWritten < 10000) {
-			fprintf(fp, "PROCESS: #%i was interrupted @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
+			fprintf(fp, "USER: #%i was interrupted @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
 			fileLinesWritten++;
 		}
 		
@@ -184,9 +183,9 @@ backToWait:
 		}
 		
 		// Give OSS control
-		printf("\t\t\t\t\tPROCESS: #%i relinquished control @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
+		printf("USER: #%i relinquished control @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
 		if(fileLinesWritten < 10000) {
-			fprintf(fp, "PROCESS: #%i relinquished control @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
+			fprintf(fp, "USER: #%i relinquished control @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
 			fileLinesWritten++;
 		}
 		
@@ -208,9 +207,9 @@ backToWait:
 		sprintf(msgbuff_send.mtext, "%i", statusZero);
 		
 		// **Exit Critical Section**
-		printf("\t\t\t\t\tPROCESS: #%i completed @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
+		printf("USER: #%i completed @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
 		if(fileLinesWritten < 10000) {
-			fprintf(fp, "PROCESS: #%i completed @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
+			fprintf(fp, "USER: #%i completed @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
 			fileLinesWritten++;
 		}
 	}
@@ -231,17 +230,16 @@ backToWait:
 	shm->flag[i] = idle;
 	
 	// Give OSS back control
-	printf("\t\t\t\t\tPROCESS: #%i quitting and relinquishing control @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
+	printf("USER: #%i quitting and relinquishing control @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
 	if(fileLinesWritten < 10000) {
-		fprintf(fp, "PROCESS: #%i quitting and relinquishing control @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
+		fprintf(fp, "USER: #%i quitting and relinquishing control @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
 		fileLinesWritten++;
 	}
 
 	usleep(1000);
 	
 	if(msgsnd(msgid_sending, &msgbuff_send, MSGSZ, IPC_NOWAIT) < 0) {
-		perror("msgsnd");
-		printf("The reply to child did not send\n");
+		printf("ERROR: the msg to oss failed to send\n");
 		signalHandler();
 	}
 	
@@ -255,27 +253,27 @@ backToWait:
 	
 }
 
-// Kills all when signal is received
+/* Completely Terminates the child process  */
 void signalHandler() {
     pid_t id = getpid();
-	printf("Signal received... terminating child process %i\n", id);
+	printf("A signal was given, child with pid:%i has been removed.\n", id);
 	killAll();
     killpg(id, SIGINT);
     exit(EXIT_SUCCESS);
 }
 
-// Release shared memory
+/* Releases all Shared Memory */
 void killAll() {
-	shmdt(shm);
 	shmdt(pcb);
+	shmdt(shm);
 	fclose(fp);
 }
 
 int getIndex() {
-	int c;
-	for(c = 0; c < MAX_USER_PROCESSES; c++) {
-		if(pcb[c]->pid == getpid()) {
-			return c;
+	int i;
+	for(i = 0; i < MAX_USER_PROCESSES; i++) {
+		if(pcb[i]->pid == getpid()) {
+			return i;
 		}
 	}
 }

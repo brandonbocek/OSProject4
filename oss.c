@@ -773,7 +773,6 @@ void signalHandler() {
 	killAll();
     pid_t id = getpgrp();
     killpg(id, SIGINT);
-	sleep(1);
     exit(EXIT_SUCCESS);
 }
 
