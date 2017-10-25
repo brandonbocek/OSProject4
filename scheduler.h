@@ -37,8 +37,8 @@
 
 
 struct msg_buf {
-	long mtype;
-	char mtext[MSGSZ];
+	long mtype;			/* Message type */
+	char mtext[MSGSZ]; 	/* Message Text */
 };
 
 struct ProcessControlBlock {

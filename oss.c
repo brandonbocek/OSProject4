@@ -30,8 +30,8 @@ int main(int argc, char* argv[]) {
 	signal(SIGINT, signalHandler);
 	signal(SIGSEGV, signalHandler);
 	
-	// Logfile name and execl binaries path
-	char *fileName = "ossLog.out";
+	/* The file for the output log to track progress */
+	char *filename = "ossLog.out";
 	
 	/* Seeding generator for random numbers */
 	srand((unsigned)(getpid() ^ time(NULL) ^ ((getpid()) >> MAX_USER_PROCESSES)));
@@ -47,7 +47,7 @@ int main(int argc, char* argv[]) {
 					
 			case 'l':
 				/*  Change the name of the file to write to */
-				fileName = optarg;
+				filename = optarg;
 				break;
 	
 			case '?':
@@ -84,9 +84,10 @@ int main(int argc, char* argv[]) {
         exit(EXIT_FAILURE); 
     }
 	
-	fp = fopen(fileName, "a");
+	/*  Set the file pointer to the correct file */
+	fp = fopen(filename, "a");
 	if(fp == NULL) {
-		printf("Couldn't open file");
+		printf("ERROR: Failed to open file.");
 		killAll();
 		exit(EXIT_FAILURE);
 	}
@@ -210,10 +211,7 @@ int main(int argc, char* argv[]) {
 		// If OSS receives a message from a child requesting control
 		if(msgrcv(msgid_receiving, &msgbuff_receive, MSGSZ, 1, IPC_NOWAIT) > 0) {
 			printf("OSS: Handing control to #%s process at %03i.%09lu\n", msgbuff_receive.mtext, shm->timePassedSec, shm->timePassedNansec);
-			if(fileLinesWritten < 10000) {
-				fprintf(fp, "OSS: Handing control to #%s process %03i.%09lu\n", msgbuff_receive.mtext, shm->timePassedSec, shm->timePassedNansec);
-				fileLinesWritten++;
-			}
+			fprintf(fp, "OSS: Handing control to #%s process %03i.%09lu\n", msgbuff_receive.mtext, shm->timePassedSec, shm->timePassedNansec);
 			
 			shm->childControl = 1;
 			temp = atoi(msgbuff_receive.mtext);
@@ -234,10 +232,7 @@ int main(int argc, char* argv[]) {
 			while(msgrcv(msgid_receiving, &msgbuff_receive, MSGSZ, 0, 0) < 0);
 			
 			printf("OSS: Taking control back from process #%i @ %03i.%09lu\n", temp, shm->timePassedSec, shm->timePassedNansec);
-			if(fileLinesWritten < 10000) {
-				fprintf(fp, "OSS: Taking control back from process #%i @ %03i.%09lu\n", temp, shm->timePassedSec, shm->timePassedNansec);
-				fileLinesWritten++;
-			}
+			fprintf(fp, "OSS: Taking control back from process #%i @ %03i.%09lu\n", temp, shm->timePassedSec, shm->timePassedNansec);
 			
 			usleep(MASTER_OVERHEAD_TIME * 10000);
 			shm->childControl = 0;
@@ -338,10 +333,7 @@ void addToQueue(int queue, pid_t pid, char *word) {
 					queueOne->index[c] = location;
 					usleep(10);
 					printf("OSS: %s #%i to Queue #%i @ %03i.%09lu\n", word, pid, queue, shm->timePassedSec, shm->timePassedNansec);
-					if(fileLinesWritten < 10000) {
-						fprintf(fp, "OSS: %s #%i to Queue #%i @ %03i.%09lu\n", word, pid, queue, shm->timePassedSec, shm->timePassedNansec);
-						fileLinesWritten++;
-					}
+					fprintf(fp, "OSS: %s #%i to Queue #%i @ %03i.%09lu\n", word, pid, queue, shm->timePassedSec, shm->timePassedNansec);
 					queueOne->numProcesses++;
 					break;
 				}
@@ -356,10 +348,7 @@ void addToQueue(int queue, pid_t pid, char *word) {
 					queueTwo->index[c] = location;
 					usleep(10);
 					printf("OSS: %s #%i to Queue #%i @ %03i.%09lu\n", word, pid, queue, shm->timePassedSec, shm->timePassedNansec);
-					if(fileLinesWritten < 10000) {
-						fprintf(fp, "OSS: %s #%i to Queue #%i @ %03i.%09lu\n", word, pid, queue, shm->timePassedSec, shm->timePassedNansec);
-						fileLinesWritten++;
-					}
+					fprintf(fp, "OSS: %s #%i to Queue #%i @ %03i.%09lu\n", word, pid, queue, shm->timePassedSec, shm->timePassedNansec);
 					queueTwo->numProcesses++;
 					break;
 				}
@@ -374,10 +363,7 @@ void addToQueue(int queue, pid_t pid, char *word) {
 					queueThree->index[c] = location;
 					usleep(10);
 					printf("OSS: %s #%i to Queue #%i @ %03i.%09lu\n", word, pid, queue, shm->timePassedSec, shm->timePassedNansec);
-					if(fileLinesWritten < 10000) {
-						fprintf(fp, "OSS: %s #%i to Queue #%i @ %03i.%09lu\n", word, pid, queue, shm->timePassedSec, shm->timePassedNansec);
-						fileLinesWritten++;
-					}
+					fprintf(fp, "OSS: %s #%i to Queue #%i @ %03i.%09lu\n", word, pid, queue, shm->timePassedSec, shm->timePassedNansec);
 					queueThree->numProcesses++;
 					break;
 				}
@@ -394,13 +380,7 @@ void addToQueue(int queue, pid_t pid, char *word) {
 				}
 			}
 			
-			break;
-		
-		default:
-			printf("Error: Could not add child #%i to a queue!\n", pid);
-			fprintf(stderr, "Error adding to queue\n");
-			fprintf(fp, "Error: Could not add child #%i to a queue!\n", pid);
-			break;
+			break;	
 	} 
 }
 
@@ -570,7 +550,8 @@ void printStats() {
 	sleep(1);
 	printf("*******************************************************************\n");
 	printf("\tTotal Program Run Time: %i.%09lu seconds\n", shm->timePassedSec, shm->timePassedNansec);
-	printf("\tTotal CPU Down Time: %f seconds\n", ((double)shm->timePassedSec - ((((double)(MASTER_OVERHEAD_TIME + 2) * 1e-2) * totalTimesLooped) + (double)(totalProcessCPUTime / 1E9))));
+	printf("\tTotal CPU Down Time: %f seconds\n", 
+		((double)shm->timePassedSec - ((((double)(MASTER_OVERHEAD_TIME + 2) * 1e-2) * totalTimesLooped) + (double)(totalProcessCPUTime / 1E9))));
 	printf("\tAverage time waiting in Queue: %f seconds\n", ((double)totalWaitTime / (double)totalSchedules));
 	printf("\tAverage CPU Usage by Processes: %f seconds\n", ((double)(totalProcessCPUTime / 1E9) / (double)totalProcesses));
 	printf("\tAverage Turnaround Time: %03f seconds\n", ((double)totalTime / (double)totalProcesses));	
@@ -688,10 +669,7 @@ void scheduleProcess() {
 		msgbuff_send.mtype = queueOne->pid[0];
 		sprintf(msgbuff_send.mtext, "%i", shm->scheduledCount);
 		printf("OSS: Scheduled #%i @ %03i.%09lu\n", msgbuff_send.mtype, shm->timePassedSec, shm->timePassedNansec);
-		if(fileLinesWritten < 10000) {
-			fprintf(fp, "OSS: Scheduled #%i @ %03i.%09lu\n", msgbuff_send.mtype, shm->timePassedSec, shm->timePassedNansec);
-			fileLinesWritten++;
-		}
+		fprintf(fp, "OSS: Scheduled #%i @ %03i.%09lu\n", msgbuff_send.mtype, shm->timePassedSec, shm->timePassedNansec);
 		
 		if(msgsnd(msgid_sending, &msgbuff_send, MSGSZ, IPC_NOWAIT) < 0) {
 			perror("msgsnd");

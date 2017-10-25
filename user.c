@@ -135,21 +135,15 @@ beforeTheWait:
 	
 	// Request OSS to stop
 	printf("USER: #%i requesting control @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
-	if(fileLinesWritten < 10000) {
-		fprintf(fp, "USER: #%i requesting control @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
-		fileLinesWritten++;
-	}
+	fprintf(fp, "USER: #%i requesting control @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
 	
 	// Begin running when OSS stops
 	while(msgrcv(msgid_critical, &msgbuff_critical, MSGSZ, 1, 0) < 0);
 	printf("USER: #%i began running @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
-	if(fileLinesWritten < 10000) {
-		fprintf(fp, "USER: #%i began running @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
-		fileLinesWritten++;
-	}
+	fprintf(fp, "USER: #%i began running @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
 	
 	// If quantum > running time, this process cant finish in this iteration and must be requeued
-	unsigned long long int runningTime = rand() % (1000000000 - min) + min;	
+	unsigned long long int runningTime = rand() % (50000000 - min) + min;	
 	if(pcb[i]->quantum > runningTime) {
 		usleep((runningTime / 1000));
 		
@@ -160,10 +154,7 @@ beforeTheWait:
 		
 		//////////////////Critical Section Ends/////////////////////////
 		printf("USER: #%i was interrupted @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
-		if(fileLinesWritten < 10000) {
-			fprintf(fp, "USER: #%i was interrupted @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
-			fileLinesWritten++;
-		}
+		fprintf(fp, "USER: #%i was interrupted @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
 		
 		j = (shm->turn + 1) % n;
 		while(shm->flag[j] == idle) {
@@ -220,7 +211,8 @@ beforeTheWait:
 	fprintf(fp, "USER: #%i quitting and relinquishing control @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
 
 	usleep(1000);
-	
+
+	/*  Send signal to OSS to schedule another process */	
 	if(msgsnd(msgid_sending, &msgbuff_send, MSGSZ, IPC_NOWAIT) < 0) {
 		printf("ERROR: the msg to oss failed to send\n");
 		signalHandler();
