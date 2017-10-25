@@ -1,106 +1,430 @@
-OSS: Created #6374 @ 002.072120891 - PROCESS #1 - INDEX: 1
-OSS: Added #6374 to Queue #1 @ 002.122335227
-OSS: Scheduled #6374 @ 002.172520736
-OSS: Process #6374 was in queue for 000.050315076 seconds
-OSS: Giving control to process #6374 @ 002.222715376
-OSS: Taking control back from process #6374 @ 002.799225188
-OSS: Terminating process #6374 @ 002.899530305
+OSS: Created #8287 @ 000.004594987 - PROCESS #1 - INDEX: 1
+OSS: Added #8287 to Queue #1 @ 000.054834027
+OSS: Scheduled #8287 @ 000.105021127
+OSS: Process #8287 was in queue for 000.050330380 seconds
+OSS: Giving control to process #8287 @ 000.155229743
+OSS: Taking control back from process #8287 @ 000.570765999
+OSS: Terminating process #8287 @ 000.671044719
 -----------------------------------------------------------------------------------
-----------Process 6374 was in the system for 0.018223344 seconds-----------------
---------------Process 6374 used 0.524829 seconds of CPU time---------------------
+----------Process 8287 was in the system for 0.013766896 seconds-----------------
+--------------Process 8287 used 0.364035 seconds of CPU time---------------------
 -----------------------------------------------------------------------------------
-OSS: Created #6380 @ 003.107274863 - PROCESS #2 - INDEX: 1
-OSS: Added #6380 to Queue #1 @ 003.157534577
-OSS: Scheduled #6380 @ 003.207665030
-OSS: Process #6380 was in queue for 001.207673278 seconds
-OSS: Giving control to process #6380 @ 003.257809644
-OSS: Taking control back from process #6380 @ 003.856247029
-OSS: Terminating process #6380 @ 003.956500147
+OSS: Created #8288 @ 000.871299255 - PROCESS #2 - INDEX: 1
+OSS: Added #8288 to Queue #1 @ 001.037969807
+OSS: Scheduled #8288 @ 001.088083626
+OSS: Process #8288 was in queue for 001.088101325 seconds
+OSS: Giving control to process #8288 @ 001.138248500
+OSS: Taking control back from process #8288 @ 001.519964964
+OSS: Terminating process #8288 @ 001.620216846
 -----------------------------------------------------------------------------------
-----------Process 6380 was in the system for 0.018223344 seconds-----------------
---------------Process 6380 used 0.547042 seconds of CPU time---------------------
+----------Process 8288 was in the system for 1.013766896 seconds-----------------
+--------------Process 8288 used 0.330264 seconds of CPU time---------------------
 -----------------------------------------------------------------------------------
-OSS: Created #6382 @ 005.208023647 - PROCESS #3 - INDEX: 1
-OSS: Added #6382 to Queue #1 @ 005.258243699
-OSS: Scheduled #6382 @ 005.308348007
-OSS: Process #6382 was in queue for 002.308362278 seconds
-OSS: Giving control to process #6382 @ 005.358501663
-OSS: Taking control back from process #6382 @ 006.333332553
-OSS: Re-Added #6382 to Queue #2 @ 006.383576511
-OSS: Created #6387 @ 006.634206528 - PROCESS #4 - INDEX: 2
-OSS: Added #6387 to Queue #1 @ 006.684425370
-OSS: Moved Starving #6382 to Queue #1 @ 006.784703426
-OSS: Scheduled #6387 @ 007.135173508
-OSS: Process #6387 was in queue for 001.18446744073160416598 seconds
-OSS: Giving control to process #6387 @ 007.185338626
-OSS: Taking control back from process #6387 @ 007.822991434
-OSS: Re-Added #6387 to Queue #2 @ 007.873212077
-OSS: Created #6389 @ 008.123662734 - PROCESS #5 - INDEX: 3
-OSS: Added #6389 to Queue #1 @ 008.173894423
-OSS: Moved Starving #6387 to Queue #1 @ 008.274213825
-OSS: Created #6392 @ 008.524563294 - PROCESS #6 - INDEX: 4
-OSS: Added #6392 to Queue #1 @ 008.574797211
-OSS: Scheduled #6382 @ 008.624979331
-OSS: Process #6382 was in queue for 008.624987149 seconds
-OSS: Giving control to process #6382 @ 008.675114711
-OSS: Taking control back from process #6382 @ 009.238336405
-OSS: Terminating process #6382 @ 009.338592446
+OSS: Created #8291 @ 002.175000134 - PROCESS #3 - INDEX: 1
+OSS: Added #8291 to Queue #1 @ 002.227552542
+OSS: Scheduled #8291 @ 002.277669728
+OSS: Process #8291 was in queue for 001.277694432 seconds
+OSS: Giving control to process #8291 @ 002.327840712
+OSS: Taking control back from process #8291 @ 002.894843616
+OSS: Terminating process #8291 @ 002.995388899
 -----------------------------------------------------------------------------------
-----------Process 6382 was in the system for 4.018223344 seconds-----------------
---------------Process 6382 used 1.436338 seconds of CPU time---------------------
+----------Process 8291 was in the system for 0.013766896 seconds-----------------
+--------------Process 8291 used 0.515261 seconds of CPU time---------------------
 -----------------------------------------------------------------------------------
-OSS: Created #6393 @ 009.538856846 - PROCESS #7 - INDEX: 4
-OSS: Added #6393 to Queue #1 @ 009.589079754
-OSS: Scheduled #6389 @ 009.639217197
-OSS: Process #6389 was in queue for 009.639240359 seconds
-OSS: Giving control to process #6389 @ 009.689375563
-OSS: Taking control back from process #6389 @ 009.842523405
-OSS: Terminating process #6389 @ 009.942813105
+OSS: Created #8293 @ 003.195655264 - PROCESS #4 - INDEX: 1
+OSS: Added #8293 to Queue #1 @ 003.245867782
+OSS: Scheduled #8293 @ 003.295997959
+OSS: Process #8293 was in queue for 001.296031268 seconds
+OSS: Giving control to process #8293 @ 003.346170663
+OSS: Taking control back from process #8293 @ 003.622909951
+OSS: Terminating process #8293 @ 003.723171400
 -----------------------------------------------------------------------------------
-----------Process 6389 was in the system for 1.018223344 seconds-----------------
---------------Process 6389 used 0.101621 seconds of CPU time---------------------
+----------Process 8293 was in the system for 0.013766896 seconds-----------------
+--------------Process 8293 used 0.225305 seconds of CPU time---------------------
 -----------------------------------------------------------------------------------
-OSS: Scheduled #6387 @ 010.243160990
-OSS: Process #6387 was in queue for 001.243170235 seconds
-OSS: Giving control to process #6387 @ 010.293290124
-OSS: Taking control back from process #6387 @ 010.986000028
-OSS: Re-Added #6387 to Queue #1 @ 011.039153141
-OSS: Scheduled #6392 @ 011.390286676
-OSS: Process #6392 was in queue for 001.390296129 seconds
-OSS: Giving control to process #6392 @ 011.440426118
-OSS: Taking control back from process #6392 @ 012.087151626
-OSS: Re-Added #6392 to Queue #1 @ 012.137347735
-OSS: Created #6397 @ 012.387666016 - PROCESS #8 - INDEX: 4
-OSS: Added #6397 to Queue #1 @ 012.437879861
-OSS: Scheduled #6393 @ 012.488042309
-OSS: Process #6393 was in queue for 012.488051881 seconds
-OSS: Giving control to process #6393 @ 012.538174553
-OSS: Taking control back from process #6393 @ 013.184862551
-OSS: Re-Added #6393 to Queue #2 @ 013.235150766
-OSS: Created #6399 @ 013.485509171 - PROCESS #9 - INDEX: 5
-OSS: Added #6399 to Queue #1 @ 013.535766408
-OSS: Moved Starving #6393 to Queue #1 @ 013.636106111
-OSS: Scheduled #6387 @ 013.986609924
-OSS: Process #6387 was in queue for 002.949635559 seconds
-OSS: Giving control to process #6387 @ 014.036796678
-OSS: Taking control back from process #6387 @ 014.318000262
-OSS: Terminating process #6387 @ 014.420000093
+OSS: Created #8294 @ 003.923483215 - PROCESS #5 - INDEX: 1
+OSS: Added #8294 to Queue #1 @ 003.973704228
+OSS: Scheduled #8294 @ 004.023820695
+OSS: Process #8294 was in queue for 001.023836740 seconds
+OSS: Giving control to process #8294 @ 004.073941557
+OSS: Taking control back from process #8294 @ 004.824436483
+OSS: Re-Added #8294 to Queue #2 @ 004.874748598
+OSS: Moved #8294 to Queue #1 @ 005.225282634
+OSS: Scheduled #8294 @ 005.625782586
+OSS: Process #8294 was in queue for 001.625802430 seconds
+OSS: Giving control to process #8294 @ 005.675955678
+OSS: Taking control back from process #8294 @ 006.366420505
+OSS: Terminating process #8294 @ 006.466726882
 -----------------------------------------------------------------------------------
-----------Process 6387 was in the system for 8.018223344 seconds-----------------
---------------Process 6387 used 1.457440 seconds of CPU time---------------------
+----------Process 8294 was in the system for 3.013766896 seconds-----------------
+--------------Process 8294 used 1.339092 seconds of CPU time---------------------
 -----------------------------------------------------------------------------------
-OSS: Scheduled #6392 @ 014.724000024
-OSS: Process #6392 was in queue for 002.586752094 seconds
-OSS: Giving control to process #6392 @ 014.774216381
-OSS: Taking control back from process #6392 @ 015.184811579
-OSS: Terminating process #6392 @ 015.285122254
+OSS: Created #8295 @ 006.666999666 - PROCESS #6 - INDEX: 1
+OSS: Added #8295 to Queue #1 @ 006.717236291
+OSS: Scheduled #8295 @ 006.767359207
+OSS: Process #8295 was in queue for 001.767380556 seconds
+OSS: Giving control to process #8295 @ 006.817522359
+OSS: Taking control back from process #8295 @ 007.721667159
+OSS: Re-Added #8295 to Queue #1 @ 007.771924914
+OSS: Scheduled #8295 @ 008.122399235
+OSS: Process #8295 was in queue for 002.122417718 seconds
+OSS: Giving control to process #8295 @ 008.172556017
+OSS: Taking control back from process #8295 @ 008.558798197
+OSS: Terminating process #8295 @ 008.659145823
 -----------------------------------------------------------------------------------
-----------Process 6392 was in the system for 7.018223344 seconds-----------------
---------------Process 6392 used 0.955511 seconds of CPU time---------------------
+----------Process 8295 was in the system for 2.013766896 seconds-----------------
+--------------Process 8295 used 1.188332 seconds of CPU time---------------------
 -----------------------------------------------------------------------------------
-OSS: Created #6402 @ 015.485451427 - PROCESS #10 - INDEX: 4
-OSS: Added #6402 to Queue #1 @ 015.535703563
-OSS: Scheduled #6397 @ 015.585837804
-OSS: Process #6397 was in queue for 001.585849771 seconds
-OSS: Giving control to process #6397 @ 015.635985501
-OSS: Taking control back from process #6397 @ 016.550485142
+OSS: Created #8296 @ 009.209828576 - PROCESS #7 - INDEX: 1
+OSS: Added #8296 to Queue #1 @ 009.260034722
+OSS: Scheduled #8296 @ 009.310166731
+OSS: Process #8296 was in queue for 001.310193817 seconds
+OSS: Giving control to process #8296 @ 009.360337235
+OSS: Taking control back from process #8296 @ 010.266986846
+OSS: Re-Added #8296 to Queue #2 @ 010.317246079
+OSS: Moved #8296 to Queue #1 @ 010.667735242
+OSS: Scheduled #8296 @ 011.068245130
+OSS: Process #8296 was in queue for 002.068263501 seconds
+OSS: Giving control to process #8296 @ 011.118375128
+OSS: Taking control back from process #8296 @ 011.879880100
+OSS: Terminating process #8296 @ 011.980163641
+-----------------------------------------------------------------------------------
+----------Process 8296 was in the system for 2.013766896 seconds-----------------
+--------------Process 8296 used 1.566365 seconds of CPU time---------------------
+-----------------------------------------------------------------------------------
+OSS: Created #8297 @ 012.180460383 - PROCESS #8 - INDEX: 1
+OSS: Added #8297 to Queue #1 @ 012.230676081
+OSS: Scheduled #8297 @ 012.280790396
+OSS: Process #8297 was in queue for 001.280808745 seconds
+OSS: Giving control to process #8297 @ 012.330921642
+OSS: Taking control back from process #8297 @ 013.130637481
+OSS: Re-Added #8297 to Queue #1 @ 013.180855555
+OSS: Created #8298 @ 013.431198018 - PROCESS #9 - INDEX: 2
+OSS: Added #8298 to Queue #1 @ 013.481416371
+OSS: Scheduled #8297 @ 013.531526881
+OSS: Process #8297 was in queue for 013.531543049 seconds
+OSS: Giving control to process #8297 @ 013.581674057
+OSS: Taking control back from process #8297 @ 013.696160206
+OSS: Terminating process #8297 @ 013.796462996
+-----------------------------------------------------------------------------------
+----------Process 8297 was in the system for 1.013766896 seconds-----------------
+--------------Process 8297 used 0.812395 seconds of CPU time---------------------
+-----------------------------------------------------------------------------------
+OSS: Created #8299 @ 013.996720747 - PROCESS #10 - INDEX: 2
+OSS: Added #8299 to Queue #1 @ 014.046927277
+OSS: Scheduled #8298 @ 014.097067470
+OSS: Process #8298 was in queue for 014.097091176 seconds
+OSS: Giving control to process #8298 @ 014.147269150
+OSS: Taking control back from process #8298 @ 014.218043246
+OSS: Terminating process #8298 @ 014.318532315
+-----------------------------------------------------------------------------------
+----------Process 8298 was in the system for 1.013766896 seconds-----------------
+--------------Process 8298 used 0.019344 seconds of CPU time---------------------
+-----------------------------------------------------------------------------------
+OSS: Created #8300 @ 014.518960531 - PROCESS #11 - INDEX: 2
+OSS: Added #8300 to Queue #1 @ 014.569170157
+OSS: Scheduled #8299 @ 014.619324889
+OSS: Process #8299 was in queue for 014.619349558 seconds
+OSS: Giving control to process #8299 @ 014.669474731
+OSS: Taking control back from process #8299 @ 015.474670571
+OSS: Re-Added #8299 to Queue #2 @ 015.524889290
+OSS: Scheduled #8300 @ 015.875318455
+OSS: Process #8300 was in queue for 001.556788689 seconds
+OSS: Giving control to process #8300 @ 015.925468548
+OSS: Taking control back from process #8300 @ 016.292370205
+OSS: Terminating process #8300 @ 016.392612959
+-----------------------------------------------------------------------------------
+----------Process 8300 was in the system for 2.013766896 seconds-----------------
+--------------Process 8300 used 0.315475 seconds of CPU time---------------------
+-----------------------------------------------------------------------------------
+OSS: Moved #8299 to Queue #1 @ 016.693075965
+OSS: Scheduled #8299 @ 017.093575760
+OSS: Process #8299 was in queue for 001.18446744073410485545 seconds
+OSS: Giving control to process #8299 @ 017.143864643
+OSS: Taking control back from process #8299 @ 017.806989664
+OSS: Re-Added #8299 to Queue #1 @ 017.857204437
+OSS: Created #8301 @ 018.107707693 - PROCESS #12 - INDEX: 2
+OSS: Added #8301 to Queue #1 @ 018.157955803
+OSS: Scheduled #8299 @ 018.208089651
+OSS: Process #8299 was in queue for 018.208099988 seconds
+OSS: Giving control to process #8299 @ 018.258243999
+OSS: Taking control back from process #8299 @ 018.436454799
+OSS: Terminating process #8299 @ 018.536717564
+-----------------------------------------------------------------------------------
+----------Process 8299 was in the system for 5.013766896 seconds-----------------
+--------------Process 8299 used 1.494344 seconds of CPU time---------------------
+-----------------------------------------------------------------------------------
+OSS: Scheduled #8301 @ 018.837094452
+OSS: Process #8301 was in queue for 018.837116296 seconds
+OSS: Giving control to process #8301 @ 018.887254537
+OSS: Taking control back from process #8301 @ 019.795137023
+OSS: Re-Added #8301 to Queue #2 @ 019.845375675
+OSS: Created #8302 @ 020.095729653 - PROCESS #13 - INDEX: 2
+OSS: Added #8302 to Queue #1 @ 020.145968120
+OSS: Moved Starving #8301 to Queue #1 @ 020.246281732
+OSS: Created #8303 @ 020.496696693 - PROCESS #14 - INDEX: 3
+OSS: Added #8303 to Queue #1 @ 020.546917724
+OSS: Scheduled #8302 @ 020.597049822
+OSS: Process #8302 was in queue for 020.597073027 seconds
+OSS: Giving control to process #8302 @ 020.647231693
+OSS: Taking control back from process #8302 @ 020.988615767
+OSS: Terminating process #8302 @ 021.088869632
+-----------------------------------------------------------------------------------
+----------Process 8302 was in the system for 1.013766896 seconds-----------------
+--------------Process 8302 used 0.289859 seconds of CPU time---------------------
+-----------------------------------------------------------------------------------
+OSS: Scheduled #8301 @ 021.389249313
+OSS: Process #8301 was in queue for 021.389268781 seconds
+OSS: Giving control to process #8301 @ 021.439398010
+OSS: Taking control back from process #8301 @ 022.174094135
+OSS: Terminating process #8301 @ 022.274394676
+-----------------------------------------------------------------------------------
+----------Process 8301 was in the system for 4.013766896 seconds-----------------
+--------------Process 8301 used 1.540656 seconds of CPU time---------------------
+-----------------------------------------------------------------------------------
+OSS: Created #8304 @ 022.474721230 - PROCESS #15 - INDEX: 2
+OSS: Added #8304 to Queue #1 @ 022.524977179
+OSS: Scheduled #8303 @ 022.575164380
+OSS: Process #8303 was in queue for 022.575192399 seconds
+OSS: Giving control to process #8303 @ 022.625325952
+OSS: Taking control back from process #8303 @ 023.336885205
+OSS: Re-Added #8303 to Queue #1 @ 023.387141840
+OSS: Scheduled #8304 @ 023.737526438
+OSS: Process #8304 was in queue for 003.737555509 seconds
+OSS: Giving control to process #8304 @ 023.787690169
+OSS: Taking control back from process #8304 @ 024.594504788
+OSS: Re-Added #8304 to Queue #3 @ 024.644728718
+OSS: Scheduled #8303 @ 024.995174657
+OSS: Process #8303 was in queue for 001.608165910 seconds
+OSS: Giving control to process #8303 @ 025.045335078
+OSS: Taking control back from process #8303 @ 025.571360168
+OSS: Terminating process #8303 @ 025.671630978
+-----------------------------------------------------------------------------------
+----------Process 8303 was in the system for 5.013766896 seconds-----------------
+--------------Process 8303 used 1.135703 seconds of CPU time---------------------
+-----------------------------------------------------------------------------------
+OSS: Created #8305 @ 025.871903567 - PROCESS #16 - INDEX: 2
+OSS: Added #8305 to Queue #1 @ 025.922194367
+OSS: Scheduled #8305 @ 025.972313182
+OSS: Process #8305 was in queue for 000.050258142 seconds
+OSS: Giving control to process #8305 @ 026.022449215
+OSS: Taking control back from process #8305 @ 026.711434977
+OSS: Re-Added #8305 to Queue #3 @ 026.761653724
+OSS: Moved #8304 to Queue #2 @ 027.112124597
+OSS: Moved #8304 to Queue #1 @ 027.512690576
+OSS: Scheduled #8304 @ 027.913259218
+OSS: Process #8304 was in queue for 002.913273126 seconds
+OSS: Giving control to process #8304 @ 027.963403209
+OSS: Taking control back from process #8304 @ 028.788853942
+OSS: Re-Added #8304 to Queue #2 @ 028.839144490
+OSS: Created #8307 @ 029.089529498 - PROCESS #17 - INDEX: 3
+OSS: Added #8307 to Queue #1 @ 029.139755654
+OSS: Moved Starving #8305 to Queue #2 @ 029.240073223
+OSS: Scheduled #8307 @ 029.590495769
+OSS: Process #8307 was in queue for 000.450877690 seconds
+OSS: Giving control to process #8307 @ 029.640669102
+OSS: Taking control back from process #8307 @ 029.811990333
+OSS: Terminating process #8307 @ 029.912242930
+-----------------------------------------------------------------------------------
+----------Process 8307 was in the system for 0.013766896 seconds-----------------
+--------------Process 8307 used 0.119757 seconds of CPU time---------------------
+-----------------------------------------------------------------------------------
+OSS: Moved #8304 to Queue #1 @ 030.212674804
+OSS: Scheduled #8304 @ 030.613177717
+OSS: Process #8304 was in queue for 001.18446744073410484428 seconds
+OSS: Giving control to process #8304 @ 030.663316204
+OSS: Taking control back from process #8304 @ 031.231869170
+OSS: Terminating process #8304 @ 031.332209962
+-----------------------------------------------------------------------------------
+----------Process 8304 was in the system for 9.013766896 seconds-----------------
+--------------Process 8304 used 2.048502 seconds of CPU time---------------------
+-----------------------------------------------------------------------------------
+OSS: Created #8308 @ 031.532488803 - PROCESS #18 - INDEX: 2
+OSS: Added #8308 to Queue #1 @ 031.582697141
+OSS: Scheduled #8308 @ 031.632859975
+OSS: Process #8308 was in queue for 001.632888596 seconds
+OSS: Giving control to process #8308 @ 031.683037187
+OSS: Taking control back from process #8308 @ 032.206038824
+OSS: Terminating process #8308 @ 032.306321017
+-----------------------------------------------------------------------------------
+----------Process 8308 was in the system for 1.013766896 seconds-----------------
+--------------Process 8308 used 0.471556 seconds of CPU time---------------------
+-----------------------------------------------------------------------------------
+OSS: Created #8309 @ 032.506592498 - PROCESS #19 - INDEX: 2
+OSS: Added #8309 to Queue #1 @ 032.556829156
+OSS: Scheduled #8309 @ 032.606967325
+OSS: Process #8309 was in queue for 001.606998828 seconds
+OSS: Giving control to process #8309 @ 032.657173150
+OSS: Taking control back from process #8309 @ 033.550041390
+OSS: Re-Added #8309 to Queue #2 @ 033.600328492
+OSS: Moved #8305 to Queue #1 @ 033.950804094
+OSS: Scheduled #8305 @ 034.351332534
+OSS: Process #8305 was in queue for 002.351351808 seconds
+OSS: Giving control to process #8305 @ 034.401467351
+OSS: Taking control back from process #8305 @ 034.991599394
+OSS: Re-Added #8305 to Queue #2 @ 035.041841257
+OSS: Created #8310 @ 035.292201773 - PROCESS #20 - INDEX: 3
+OSS: Added #8310 to Queue #1 @ 035.342424011
+OSS: Moved Starving #8309 to Queue #1 @ 035.442720825
+OSS: Created #8311 @ 035.693091854 - PROCESS #21 - INDEX: 4
+OSS: Added #8311 to Queue #1 @ 035.743300011
+OSS: Scheduled #8310 @ 035.793422360
+OSS: Process #8310 was in queue for 035.793444037 seconds
+OSS: Giving control to process #8310 @ 035.843580481
+OSS: Taking control back from process #8310 @ 036.736504190
+OSS: Re-Added #8310 to Queue #1 @ 036.786753641
+OSS: Created #8312 @ 037.037103049 - PROCESS #22 - INDEX: 5
+OSS: Added #8312 to Queue #1 @ 037.087324712
+OSS: Scheduled #8309 @ 037.137518870
+OSS: Process #8309 was in queue for 037.137607616 seconds
+OSS: Giving control to process #8309 @ 037.187721383
+OSS: Taking control back from process #8309 @ 037.867790077
+OSS: Terminating process #8309 @ 037.968073927
+-----------------------------------------------------------------------------------
+----------Process 8309 was in the system for 5.013766896 seconds-----------------
+--------------Process 8309 used 1.471047 seconds of CPU time---------------------
+-----------------------------------------------------------------------------------
+OSS: Scheduled #8311 @ 038.268403853
+OSS: Process #8311 was in queue for 001.268420665 seconds
+OSS: Giving control to process #8311 @ 038.318565139
+OSS: Taking control back from process #8311 @ 039.005054191
+OSS: Terminating process #8311 @ 039.105374134
+-----------------------------------------------------------------------------------
+----------Process 8311 was in the system for 4.013766896 seconds-----------------
+--------------Process 8311 used 0.635034 seconds of CPU time---------------------
+-----------------------------------------------------------------------------------
+OSS: Scheduled #8310 @ 039.405710288
+OSS: Process #8310 was in queue for 039.405736355 seconds
+OSS: Giving control to process #8310 @ 039.455874036
+OSS: Taking control back from process #8310 @ 039.901386873
+OSS: Terminating process #8310 @ 040.001649573
+-----------------------------------------------------------------------------------
+----------Process 8310 was in the system for 4.013766896 seconds-----------------
+--------------Process 8310 used 1.236463 seconds of CPU time---------------------
+-----------------------------------------------------------------------------------
+OSS: Created #8314 @ 040.202060733 - PROCESS #23 - INDEX: 3
+OSS: Added #8314 to Queue #1 @ 040.252268779
+OSS: Scheduled #8312 @ 040.302392084
+OSS: Process #8312 was in queue for 040.302416823 seconds
+OSS: Giving control to process #8312 @ 040.352542317
+OSS: Taking control back from process #8312 @ 041.045088261
+OSS: Re-Added #8312 to Queue #1 @ 041.095425268
+OSS: Created #8320 @ 041.345751254 - PROCESS #24 - INDEX: 4
+OSS: Added #8320 to Queue #1 @ 041.395986537
+OSS: Scheduled #8314 @ 041.446114809
+OSS: Process #8314 was in queue for 001.444468812 seconds
+OSS: Giving control to process #8314 @ 041.496330224
+OSS: Taking control back from process #8314 @ 042.071343067
+OSS: Terminating process #8314 @ 042.171589699
+-----------------------------------------------------------------------------------
+----------Process 8314 was in the system for 2.013766896 seconds-----------------
+--------------Process 8314 used 0.523479 seconds of CPU time---------------------
+-----------------------------------------------------------------------------------
+OSS: Scheduled #8312 @ 042.471949491
+OSS: Process #8312 was in queue for 042.471968377 seconds
+OSS: Giving control to process #8312 @ 042.522094751
+OSS: Taking control back from process #8312 @ 042.789142151
+OSS: Terminating process #8312 @ 042.889484352
+-----------------------------------------------------------------------------------
+----------Process 8312 was in the system for 5.013766896 seconds-----------------
+--------------Process 8312 used 0.857673 seconds of CPU time---------------------
+-----------------------------------------------------------------------------------
+OSS: Created #8322 @ 043.089790762 - PROCESS #25 - INDEX: 3
+OSS: Added #8322 to Queue #1 @ 043.140038689
+OSS: Scheduled #8320 @ 043.190169594
+OSS: Process #8320 was in queue for 043.190189240 seconds
+OSS: Giving control to process #8320 @ 043.240311790
+OSS: Taking control back from process #8320 @ 044.198248891
+OSS: Re-Added #8320 to Queue #2 @ 044.248470428
+OSS: Created #8327 @ 044.498812613 - PROCESS #26 - INDEX: 4
+OSS: Added #8327 to Queue #1 @ 044.549030375
+OSS: Scheduled #8322 @ 044.599156001
+OSS: Process #8322 was in queue for 002.18446744073419219281 seconds
+OSS: Giving control to process #8322 @ 044.649302984
+OSS: Taking control back from process #8322 @ 045.407814326
+OSS: Re-Added #8322 to Queue #3 @ 045.458063201
+OSS: Scheduled #8327 @ 045.808555538
+OSS: Process #8327 was in queue for 001.560209456 seconds
+OSS: Giving control to process #8327 @ 045.858704563
+OSS: Taking control back from process #8327 @ 046.527876521
+OSS: Re-Added #8327 to Queue #2 @ 046.578113250
+OSS: Created #8331 @ 046.828468239 - PROCESS #27 - INDEX: 5
+OSS: Added #8331 to Queue #1 @ 046.878714591
+OSS: Moved Starving #8327 to Queue #1 @ 046.979032219
+OSS: Moved Starving #8305 to Queue #1 @ 047.379644880
+OSS: Scheduled #8331 @ 047.730024009
+OSS: Process #8331 was in queue for 001.18446744073560997244 seconds
+OSS: Giving control to process #8331 @ 047.780183718
+OSS: Taking control back from process #8331 @ 048.408154454
+OSS: Re-Added #8331 to Queue #3 @ 048.458378693
+OSS: Created #8333 @ 048.708827544 - PROCESS #28 - INDEX: 6
+OSS: Added #8333 to Queue #1 @ 048.759064339
+OSS: Moved Starving #8322 to Queue #2 @ 048.859454003
+OSS: Moved Starving #8320 to Queue #1 @ 049.260241672
+OSS: Scheduled #8327 @ 049.610815498
+OSS: Process #8327 was in queue for 049.610845901 seconds
+OSS: Giving control to process #8327 @ 049.660979474
+OSS: Taking control back from process #8327 @ 050.268438648
+OSS: Re-Added #8327 to Queue #1 @ 050.318655952
+OSS: Created #8336 @ 050.569033020 - PROCESS #29 - INDEX: 7
+OSS: Added #8336 to Queue #1 @ 050.619326321
+OSS: Scheduled #8305 @ 050.669451019
+OSS: Process #8305 was in queue for 001.669467118 seconds
+OSS: Giving control to process #8305 @ 050.719603505
+OSS: Taking control back from process #8305 @ 051.446199625
+OSS: Re-Added #8305 to Queue #1 @ 051.496404348
+OSS: Scheduled #8333 @ 051.846817683
+OSS: Process #8333 was in queue for 006.388892147 seconds
+OSS: Giving control to process #8333 @ 051.896968018
+OSS: Taking control back from process #8333 @ 052.524922171
+OSS: Re-Added #8333 to Queue #3 @ 052.575238708
+OSS: Created #8340 @ 052.825603262 - PROCESS #30 - INDEX: 8
+OSS: Added #8340 to Queue #1 @ 052.875828020
+OSS: Scheduled #8320 @ 052.925941024
+OSS: Process #8320 was in queue for 001.925957213 seconds
+OSS: Giving control to process #8320 @ 052.976077643
+OSS: Taking control back from process #8320 @ 053.840113460
+OSS: Re-Added #8320 to Queue #1 @ 053.890336827
+OSS: Scheduled #8327 @ 054.240763876
+OSS: Process #8327 was in queue for 054.240786324 seconds
+OSS: Giving control to process #8327 @ 054.291054883
+OSS: Taking control back from process #8327 @ 054.409263054
+OSS: Terminating process #8327 @ 054.509538945
+-----------------------------------------------------------------------------------
+----------Process 8327 was in the system for 10.013766896 seconds-----------------
+--------------Process 8327 used 1.242442 seconds of CPU time---------------------
+-----------------------------------------------------------------------------------
+OSS: Scheduled #8336 @ 054.809880927
+OSS: Process #8336 was in queue for 000.809900024 seconds
+OSS: Giving control to process #8336 @ 054.860065097
+OSS: Taking control back from process #8336 @ 055.411626005
+OSS: Terminating process #8336 @ 055.511897874
+-----------------------------------------------------------------------------------
+----------Process 8336 was in the system for 5.013766896 seconds-----------------
+--------------Process 8336 used 0.500079 seconds of CPU time---------------------
+-----------------------------------------------------------------------------------
+OSS: Created #8341 @ 055.712166257 - PROCESS #31 - INDEX: 7
+OSS: Added #8341 to Queue #1 @ 055.762369313
+OSS: Scheduled #8305 @ 055.812553913
+OSS: Process #8305 was in queue for 055.812581361 seconds
+OSS: Giving control to process #8305 @ 055.862738822
+OSS: Taking control back from process #8305 @ 056.050948470
+OSS: Terminating process #8305 @ 056.151223774
+-----------------------------------------------------------------------------------
+----------Process 8305 was in the system for 31.013766896 seconds-----------------
+--------------Process 8305 used 1.990974 seconds of CPU time---------------------
+-----------------------------------------------------------------------------------
+OSS: Scheduled #8340 @ 056.451537425
+OSS: Process #8340 was in queue for 012.451603193 seconds
+OSS: Giving control to process #8340 @ 056.501724378
+OSS: Taking control back from process #8340 @ 057.157311854
+OSS: Re-Added #8340 to Queue #2 @ 057.207588477
+OSS: Scheduled #8320 @ 057.558027013
+OSS: Process #8320 was in queue for 057.558047538 seconds
+OSS: Giving control to process #8320 @ 057.608177593
+OSS: Taking control back from process #8320 @ 057.661424656
+OSS: Terminating process #8320 @ 057.761666721
+-----------------------------------------------------------------------------------
+----------Process 8320 was in the system for 16.013766896 seconds-----------------
+--------------Process 8320 used 1.722885 seconds of CPU time---------------------
+-----------------------------------------------------------------------------------

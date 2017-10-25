@@ -50,21 +50,10 @@ int main(int argc, char* argv[]) {
 				/*  Change the name of the file to write to */
 				fileName = optarg;
 				break;
-
-			case 't':
-				/*  Change the time before the master terminates */
-				if(isdigit(*optarg)) {
-					linesToWrite = atoi(optarg);
-				} else {
-					fprintf(stderr, "'Give a number with -t'\n", optarg);
-					exit(EXIT_FAILURE);
-				}
-
-				break;
-				
+	
 			case '?':
 				/* User entered a valid flag but nothing after it */
-				if(optopt == 'l' || optopt == 't') {
+				if(optopt == 'l') {
 					fprintf(stderr, "-%c needs to have an argument!\n", optopt);
 				} else {
 					fprintf(stderr, "%s is an unrecognized flag\n", argv[optind - 1]);
@@ -96,7 +85,7 @@ int main(int argc, char* argv[]) {
         exit(EXIT_FAILURE); 
     }
 	
-	fp = fopen(fileName, "w");
+	fp = fopen(fileName, "a");
 	if(fp == NULL) {
 		printf("Couldn't open file");
 		killAll();
@@ -163,8 +152,8 @@ int main(int argc, char* argv[]) {
 	int spawnNewProcess = 0;
 	int waitUntil, result;
 	
-	// Begin OSS simulation and stop if it writes 10,000 lines to the log
-	while(fileLinesWritten < 10000) {
+	/* OSS Process Loops until the user gives the signal to end */
+	while(1) {
 		
 		result = -1;
 		
@@ -224,7 +213,7 @@ int main(int argc, char* argv[]) {
 		
 		// If OSS receives a message from a child requesting control
 		if(msgrcv(msgid_receiving, &msgbuff_receive, MSGSZ, 1, IPC_NOWAIT) > 0) {
-			printf("\t\t\t\tOSS: Giving control to process #%s @ %03i.%09lu\n", msgbuff_receive.mtext, shm->timePassedSec, shm->timePassedNansec);
+			printf("OSS: Giving control to process #%s @ %03i.%09lu\n", msgbuff_receive.mtext, shm->timePassedSec, shm->timePassedNansec);
 			if(fileLinesWritten < 10000) {
 				fprintf(fp, "OSS: Giving control to process #%s @ %03i.%09lu\n", msgbuff_receive.mtext, shm->timePassedSec, shm->timePassedNansec);
 				fileLinesWritten++;
@@ -249,7 +238,7 @@ int main(int argc, char* argv[]) {
 			// Wait for child to relinquish control
 			while(msgrcv(msgid_receiving, &msgbuff_receive, MSGSZ, 0, 0) < 0);
 			
-			printf("\t\t\t\tOSS: Taking control back from process #%i @ %03i.%09lu\n", temp, shm->timePassedSec, shm->timePassedNansec);
+			printf("OSS: Taking control back from process #%i @ %03i.%09lu\n", temp, shm->timePassedSec, shm->timePassedNansec);
 			if(fileLinesWritten < 10000) {
 				fprintf(fp, "OSS: Taking control back from process #%i @ %03i.%09lu\n", temp, shm->timePassedSec, shm->timePassedNansec);
 				fileLinesWritten++;
@@ -314,7 +303,6 @@ int main(int argc, char* argv[]) {
 		totalTimesLooped++;
 	}
 	
-	printf("*****************File size limit reached... waiting for all processes to terminate @ %03i.%09lu\n************************", shm->timePassedSec, shm->timePassedNansec);
 	
 	for(c = 0; c < queueCleanUp->numProcesses; c++) {
 		queueCleanUp->pid[c] = 0;
@@ -356,7 +344,7 @@ void addToQueue(int queue, pid_t pid, char *word) {
 					queueOne->pid[c] = pid;
 					queueOne->index[c] = location;
 					usleep(10);
-					printf("\tOSS: %s #%i to Queue #%i @ %03i.%09lu\n", word, pid, queue, shm->timePassedSec, shm->timePassedNansec);
+					printf("OSS: %s #%i to Queue #%i @ %03i.%09lu\n", word, pid, queue, shm->timePassedSec, shm->timePassedNansec);
 					if(fileLinesWritten < 10000) {
 						fprintf(fp, "OSS: %s #%i to Queue #%i @ %03i.%09lu\n", word, pid, queue, shm->timePassedSec, shm->timePassedNansec);
 						fileLinesWritten++;
@@ -374,7 +362,7 @@ void addToQueue(int queue, pid_t pid, char *word) {
 					queueTwo->pid[c] = pid;
 					queueTwo->index[c] = location;
 					usleep(10);
-					printf("\tOSS: %s #%i to Queue #%i @ %03i.%09lu\n", word, pid, queue, shm->timePassedSec, shm->timePassedNansec);
+					printf("OSS: %s #%i to Queue #%i @ %03i.%09lu\n", word, pid, queue, shm->timePassedSec, shm->timePassedNansec);
 					if(fileLinesWritten < 10000) {
 						fprintf(fp, "OSS: %s #%i to Queue #%i @ %03i.%09lu\n", word, pid, queue, shm->timePassedSec, shm->timePassedNansec);
 						fileLinesWritten++;
@@ -392,7 +380,7 @@ void addToQueue(int queue, pid_t pid, char *word) {
 					queueThree->pid[c] = pid;
 					queueThree->index[c] = location;
 					usleep(10);
-					printf("\tOSS: %s #%i to Queue #%i @ %03i.%09lu\n", word, pid, queue, shm->timePassedSec, shm->timePassedNansec);
+					printf("OSS: %s #%i to Queue #%i @ %03i.%09lu\n", word, pid, queue, shm->timePassedSec, shm->timePassedNansec);
 					if(fileLinesWritten < 10000) {
 						fprintf(fp, "OSS: %s #%i to Queue #%i @ %03i.%09lu\n", word, pid, queue, shm->timePassedSec, shm->timePassedNansec);
 						fileLinesWritten++;
@@ -512,22 +500,16 @@ int createProcess(int processNumber) {
 	pcb[indx]->inQueueNansec = 0;
 	pcb[indx]->moveFlag = 0;
 
-	/*	
-	if(pcb[indx]->quantum <= 500000000) {
-		pcb[indx]->queue = 1;
-	} else if(pcb[indx]->quantum <= 1000000000) {
-		pcb[indx]->queue = 2;
-	} else {
-		pcb[indx]->queue = 3;
-	}
-	*/
 	/*  A new process always starts in the first queue */
 	pcb[indx]->queue = 1;	
 	
 	return indx;
 }
 
+/*  Called when a child process has finished */
 void getProcessStats(int indx) {
+
+	/*  Variables for printing terminated process's final info */
 	unsigned long long int temp = shm->timePassedNansec - pcb[indx]->creationNansec;
 	if(temp < 0) {
 		temp = (shm->timePassedNansec + pcb[indx]->creationNansec) - 1E9;
@@ -547,7 +529,8 @@ void getProcessStats(int indx) {
 		fprintf(fp, "-----------------------------------------------------------------------------------\n");
 		fileLinesWritten += 4;
 	}
-		
+	
+	/*  Reset the PCB */	
 	pcb[indx]->alive = 0;
 	pcb[indx]->index = 0;
 	pcb[indx]->pid = 0;
@@ -582,11 +565,10 @@ void killAll() {
 }
 
 void printHelpMenu() {
-	printf("\nCS4760 Project 4 Help!\n");
-	printf("-h flag prints this help message\n");
-	printf("-s [int x] will spawn x slave processes\n");
-	printf("-l [string fileName] will change the output filename to something of your choosing\n");
-	printf("-t [int x] will change how long the program can execute before being forcefully terminated\n\n");
+	printf("\n\t\t~~Help Menu~~\n\t-h This Help Menu Printed\n");
+	//printf("\t-s *# of slave processes to spawn*\t\tie. '-s 5'\n");
+	printf("\t-l *log file used*\t\t\t\tie. '-l log.out'\n");
+	//printf("\t-t *time in seconds the master will terminate*\tie. -t 20\n\n");
 }
 
 void printQueues() {
@@ -609,18 +591,17 @@ void printQueues() {
 	printf("----------------------\n");
 }
 
+
+/*  Called when the entire program ends */
 void printStats() {
 	sleep(1);
-	printf("-----------------------------------------------------------------------------------\n");
-	printf("\t\tAverage Turnaround Time: %f seconds\n", ((double)totalTime / (double)totalProcesses));
-	printf("\t\tAverage Wait Time in Queue: %f seconds\n", ((double)totalWaitTime / (double)totalSchedules));
-	printf("\t\tAverage CPU Usage by Processes: %f seconds\n", ((double)(totalProcessCPUTime / 1E9) / (double)totalProcesses));
-	printf("\t\tTotal Program Run Time: %i.%09lu seconds\n", shm->timePassedSec, shm->timePassedNansec);
-	printf("\t\tTotal CPU Down Time: %f seconds\n", ((double)shm->timePassedSec - ((((double)(MASTER_OVERHEAD_TIME + 2) * 1e-2) * totalTimesLooped) + (double)(totalProcessCPUTime / 1E9))));
-	printf("\t\tTotal Lines Printed: %i\n", fileLinesWritten);
-	printf("-----------------------------------------------------------------------------------\n");
-
-	sleep(4);
+	printf("*******************************************************************\n");
+	printf("\tTotal Program Run Time: %i.%09lu seconds\n", shm->timePassedSec, shm->timePassedNansec);
+	printf("\tTotal CPU Down Time: %f seconds\n", ((double)shm->timePassedSec - ((((double)(MASTER_OVERHEAD_TIME + 2) * 1e-2) * totalTimesLooped) + (double)(totalProcessCPUTime / 1E9))));
+	printf("\tAverage time waiting in Queue: %f seconds\n", ((double)totalWaitTime / (double)totalSchedules));
+	printf("\tAverage CPU Usage by Processes: %f seconds\n", ((double)(totalProcessCPUTime / 1E9) / (double)totalProcesses));
+	printf("\tAverage Turnaround Time: %03f seconds\n", ((double)totalTime / (double)totalProcesses));	
+	printf("*******************************************************************\n");
 }
 
 int removeFromQueue(int queue, pid_t pid) {
@@ -638,7 +619,7 @@ int removeFromQueue(int queue, pid_t pid) {
 					
 					totalWaitTime += (shm->timePassedSec - pcb[tmp]->inQueueSec);
 					totalSchedules++;
-					printf("\t\tOSS: Process #%i was in queue for %03i.%09lu seconds\n", queueOne->pid[c], (shm->timePassedSec - pcb[tmp]->inQueueSec), temp);
+					printf("OSS: Process #%i was in queue for %03i.%09lu seconds\n", queueOne->pid[c], (shm->timePassedSec - pcb[tmp]->inQueueSec), temp);
 					if(fileLinesWritten < 10000) {
 						fprintf(fp, "OSS: Process #%i was in queue for %03i.%09lu seconds\n", queueOne->pid[c], (shm->timePassedSec - pcb[tmp]->inQueueSec), temp);
 						fileLinesWritten++;
@@ -684,7 +665,7 @@ int removeFromQueue(int queue, pid_t pid) {
 			break;
 			
 		default:
-			printf("You're not supposed to be here...\n");
+			printf("Something went wrong\n");
 			advanceQueues();
 			return -1;
 	}
@@ -733,7 +714,7 @@ void scheduleProcess() {
 		
 		msgbuff_send.mtype = queueOne->pid[0];
 		sprintf(msgbuff_send.mtext, "%i", shm->scheduledCount);
-		printf("\t\tOSS: Scheduled #%i @ %03i.%09lu\n", msgbuff_send.mtype, shm->timePassedSec, shm->timePassedNansec);
+		printf("OSS: Scheduled #%i @ %03i.%09lu\n", msgbuff_send.mtype, shm->timePassedSec, shm->timePassedNansec);
 		if(fileLinesWritten < 10000) {
 			fprintf(fp, "OSS: Scheduled #%i @ %03i.%09lu\n", msgbuff_send.mtype, shm->timePassedSec, shm->timePassedNansec);
 			fileLinesWritten++;
