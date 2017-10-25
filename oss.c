@@ -35,30 +35,26 @@ int main(int argc, char* argv[]) {
 	
 	// Logfile name and execl binaries path
 	const char *PATH = "./user";
-	char *fileName = "logOSS.out";
+	char *fileName = "ossLog.out";
 	
 	// Attach shared memory (clock) and Process Control Blocks
 	if((shmid = shmget(key, sizeof(struct SharedMemory *) * 3, IPC_CREAT | 0666)) < 0) {
-		perror("shmget");
-		fprintf(stderr, "shmget() returned an error! Program terminating...\n");
+		fprintf(stderr, "ERROR: shmget() faild.\n");
 		exit(EXIT_FAILURE);
 	}
 	
     if((shm = (struct SharedMemory *)shmat(shmid, NULL, 0)) == (struct SharedMemory *) -1) {
-		perror("shmat");
-        fprintf(stderr, "shmat() returned an error! Program terminating...\n");
+        fprintf(stderr, "ERROR: shmat() failed.\n");
         exit(EXIT_FAILURE); 
     }
 	
 	if((pcbid = shmget(pcbKey, sizeof(struct ProcessControlBlock *) * (MAX_USER_PROCESSES * 100), IPC_CREAT | 0666)) < 0) {
-		perror("shmget");
-		fprintf(stderr, "shmget() returned an error! Program terminating...\n");
+		fprintf(stderr, "ERROR: shmget() failed.\n");
 		exit(EXIT_FAILURE);
 	}
 	
     if((pcb = (void *)(struct ProcessControlBlock *)shmat(pcbid, NULL, 0)) == (void *) -1) {
-		perror("shmat");
-        fprintf(stderr, "shmat() 1 returned an error! Program terminating...\n");
+        fprintf(stderr, "ERROR: shmat() failed.\n");
         exit(EXIT_FAILURE); 
     }
 	
@@ -88,15 +84,14 @@ int main(int argc, char* argv[]) {
 	queueCleanUp->numProcesses = 0;
 	
 	// General variables
-	int c, status,
-		index = 0;
+	int c, status, index = 0;
 	pid_t pid, temp, wpid;
 	
 	for(c = 0; c < MAX_USER_PROCESSES; c++) {
 		shm->flag[c] = 0;
 	}
 	
-	// Message passing variables
+	/*  Variable for message passing */
     int msgflg = IPC_CREAT | 0666;
 	
 	// Attach message queues
@@ -118,12 +113,12 @@ int main(int argc, char* argv[]) {
 		exit(EXIT_FAILURE);
 	}
 
-	// Start Clock
+	/* Starting the Virtual Clock */
 	pid = fork();
 	if(pid == 0) {
 		execl("./clock", NULL);
 	} else if(pid < 0) {
-		printf("There was an error creating the clock\n");
+		printf("ERROR: Clock process forked incorrectly.\n");
 		signalHandler();
 	}
 	usleep(5000);
@@ -147,7 +142,7 @@ int main(int argc, char* argv[]) {
 			spawnNewProcess = 1;
 		}
 		
-		// Spawn child if allowed
+		/* Child process spawns if enough time has passed and there is space available */
 		if((index < MAX_USER_PROCESSES) && (spawnNewProcess == 1) && (shm->timePassedSec >= waitUntil)) {
 			index++;
 			result = createProcess(totalProcesses);
@@ -157,17 +152,20 @@ int main(int argc, char* argv[]) {
 			pid = fork();
 			if (pid == 0) {
 				
-				// Spawn slave process
+				/* ./user's process is spawned */
 				execl(PATH, NULL);
 
-				//If child program exec fails, _exit()
+				/* Exit if the exec failed */
 				_exit(EXIT_FAILURE);
+
 			} else if(pid < 0) {
-				printf("Error forking\n");
+				printf("ERROR: The new process failed to fork correctly.\n");
+
+			/* Save the process to the pcb and update the user and the log with process creation info */
 			} else {
 				pcb[result]->pid = pid;
 				pcb[result]->index = result;
-				printf("OSS: Created #%i @ %03i.%09lu - PROCESS #%i - INDEX: %i\n", pid, shm->timePassedSec, shm->timePassedNansec, totalProcesses, index);
+				printf("OSS: Created Process with ID:%i @ %03i.%09lu - PROCESS #%i - INDEX: %i\n", pid, shm->timePassedSec, shm->timePassedNansec, totalProcesses, index);
 				if(fileLinesWritten < 10000) {
 					fprintf(fp, "OSS: Created #%i @ %03i.%09lu - PROCESS #%i - INDEX: %i\n", pid, shm->timePassedSec, shm->timePassedNansec, totalProcesses, index);
 					fileLinesWritten++;
@@ -186,7 +184,6 @@ int main(int argc, char* argv[]) {
 		
 		// Run the scheduler
 		scheduleProcess(index, result);
-		//updateTime();
 		
 		// If OSS receives a message from a child requesting control
 		if(msgrcv(msgid_receiving, &msgbuff_receive, MSGSZ, 1, IPC_NOWAIT) > 0) {
@@ -478,14 +475,17 @@ int createProcess(int processNumber) {
 	pcb[indx]->inQueueNansec = 0;
 	pcb[indx]->moveFlag = 0;
 
-	
+	/*	
 	if(pcb[indx]->quantum <= 500000000) {
 		pcb[indx]->queue = 1;
 	} else if(pcb[indx]->quantum <= 1000000000) {
 		pcb[indx]->queue = 2;
 	} else {
 		pcb[indx]->queue = 3;
-	}	
+	}
+	*/
+	/*  A new process always starts in the first queue */
+	pcb[indx]->queue = 1;	
 	
 	return indx;
 }
@@ -664,13 +664,13 @@ void scheduleProcess() {
 
 
 		/*  If the time in queue is greater than 2 seconds, the process is alive and did not go last */
-		if(((shm->timePassedSec - pcb[queueThree->index[c]]->inQueueSec) > 2) && (pcb[queueThree->index[c]]->moveFlag == 0) && (pcb[queueThree->index[c]]->alive == 1) && (movedLast = 0)) {
+		if(((shm->timePassedSec - pcb[queueThree->index[c]]->inQueueSec) > 2) && (pcb[queueThree->index[c]]->moveFlag == 0) && (pcb[queueThree->index[c]]->alive == 1)) {
 			pcb[queueThree->index[c]]->queue = 2;
 			pcb[queueThree->index[c]]->moveFlag = 1;
-			movedLast++;
 			
 			usleep(MASTER_OVERHEAD_TIME * 10000);
-			
+
+		/*  Move starving process from queue 3 to queue 2 */	
 			addToQueue(2, queueThree->pid[c], "Moved Starving");
 			removeFromQueue(3, queueThree->pid[c]);
 			return;
@@ -678,25 +678,20 @@ void scheduleProcess() {
 	}
 	
 	for(c = 0; c < queueTwo->numProcesses; c++) {
-		if(((shm->timePassedSec - pcb[queueTwo->index[c]]->inQueueSec) > 2) && (pcb[queueTwo->index[c]]->moveFlag == 0) && (pcb[queueTwo->index[c]]->alive == 1) && (movedLast = 0)) {
-			pcb[queueTwo->index[c]]->queue = 2;
+		if(((shm->timePassedSec - pcb[queueTwo->index[c]]->inQueueSec) > 2) && (pcb[queueTwo->index[c]]->moveFlag == 0) && (pcb[queueTwo->index[c]]->alive == 1)) {
+			pcb[queueTwo->index[c]]->queue = 1;
 			pcb[queueTwo->index[c]]->moveFlag = 1;
-			movedLast++;
 			
 			usleep(MASTER_OVERHEAD_TIME * 10000);
-			
-			addToQueue(2, queueTwo->pid[c], "Moved Starving");
-			removeFromQueue(3, queueTwo->pid[c]);
+		/*  Move starving process from queue 2 to queue 1 */
+			addToQueue(1, queueTwo->pid[c], "Moved Starving");
+			removeFromQueue(2, queueTwo->pid[c]);
 			return;
 		}
 	}
 	
-	if(movedLast == 2) {
-		movedLast = 0;
-	} else {
-		movedLast++;
-	}
-	
+
+	/* If the first process in the queue is present */
 	if(queueOne->pid[0] > 0) {	
 		shm->scheduledCount++;
 		
@@ -736,14 +731,12 @@ void scheduleProcess() {
 }
 
 void signalHandler() {
-	printStats();
-	
+
+	printStats();	
 	killAll();
-	
     pid_t id = getpgrp();
     killpg(id, SIGINT);
 	printf("Signal received... terminating master\n");
-	
 	sleep(1);
     exit(EXIT_SUCCESS);
 }
