@@ -81,9 +81,8 @@ int main(int argc, char* argv[]) {
 	struct msg_buf msgbuff_receive, msgbuff_send, msgbuff_critical;
 	int i = getIndex();
 	
-	// Wait to be scheduled by processor
-	// If process does not complete in time, come back to this point
-backToWait:
+	/* If Process doesn't complete it comes back here */
+beforeTheWait:
 	while(msgrcv(msgid_receiving, &msgbuff_receive, MSGSZ, getpid(), 0) < 0);
 	while(shm->childControl);
 	printf("USER: #%i received scheduling message @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
@@ -99,20 +98,20 @@ backToWait:
 	statusOne = 1,
 	statusZero = 0;
 	
-	// Peterson's Algorithm for more than two processes 
+	/* The Peterson Algorithm for critical section control */
 	do {
 		shm->flag[i] = want_in;
-		//Set local variable
+		/* Set local variable */
 		j = shm->turn; 
 		
 		while(j != i) {
 			j = (shm->flag[j] != idle) ? shm->turn : (j + 1) % n;
 		}
 		
-		// Declare intention to enter critical section
+		/* Declare intention to enter critical section */
 		shm->flag[i] = in_cs;
 		
-		// Check that no one else is in critical section
+		/* Check that no one else is in critical section */
 		for(j = 0; j < n; j++) {
 			if((j != i) && (shm->flag[j] == in_cs)) {
 				break;
@@ -120,14 +119,11 @@ backToWait:
 		}
 	} while((j < n) || ((shm->turn != i) && (shm->flag[shm->turn] != idle)));
 	
-	// Assign to self and enter critical section
+	/* Assign to self and enter critical section */
 	shm->turn = i; 
 	
-	// **Critical Section**
-	if(fileLinesWritten < 10000) {
-		fprintf(fp, "PROCESS: #%i entered critical section @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
-		fileLinesWritten++;
-	}
+	/////////////Critical Section Begins/////////////////
+	fprintf(fp, "PROCESS: with pid:%i entered the critical section at %03i.%05lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
 	
 	msgbuff_send.mtype = 1;
 	sprintf(msgbuff_send.mtext, "%i", getpid());
@@ -162,7 +158,7 @@ backToWait:
 		msgbuff_send.mtype = pcb[i]->quantum;
 		sprintf(msgbuff_send.mtext, "%i", statusOne);
 		
-		// **Exit Critical Section**
+		//////////////////Critical Section Ends/////////////////////////
 		printf("USER: #%i was interrupted @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
 		if(fileLinesWritten < 10000) {
 			fprintf(fp, "USER: #%i was interrupted @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
@@ -173,30 +169,25 @@ backToWait:
 		while(shm->flag[j] == idle) {
 			j = (j + 1) % n;
 		}
-
-		//printf("\t\t\t\t\tPROCESS: #%i exited critical section @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
-		
+	
 		if(msgsnd(msgid_sending, &msgbuff_send, MSGSZ, IPC_NOWAIT) < 0) {
 			perror("msgsnd");
 			printf("The reply to child did not send\n");
 			signalHandler();
 		}
 		
-		// Give OSS control
-		printf("USER: #%i relinquished control @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
-		if(fileLinesWritten < 10000) {
-			fprintf(fp, "USER: #%i relinquished control @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
-			fileLinesWritten++;
-		}
+		/* Ceding control to OSS */
+		printf("USER: with pid:%i ceded control to oss at %03i.%05lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
+		fprintf(fp, "USER: with pid:%i ceded control to oss at %03i.%05lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
 		
-		// Wait for OSS to take over
+		/* Waiting for OSS to take control */
 		while(msgrcv(msgid_critical, &msgbuff_critical, MSGSZ, 1, 0) < 0);
 		
 		shm->turn = j;
 		shm->flag[i] = idle;
 		
-		// Go back and requeue
-		goto backToWait;
+		/* The process couldn't finish, goes back before the wait */
+		goto beforeTheWait;
 		
 	} else {
 		// If quantum < runningTime, the process can finish
@@ -208,10 +199,7 @@ backToWait:
 		
 		// **Exit Critical Section**
 		printf("USER: #%i completed @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
-		if(fileLinesWritten < 10000) {
-			fprintf(fp, "USER: #%i completed @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
-			fileLinesWritten++;
-		}
+		fprintf(fp, "USER: #%i completed @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
 	}
 	
 	j = (shm->turn + 1) % n;
@@ -219,22 +207,17 @@ backToWait:
 		j = (j + 1) % n;
 	}
 	
-	// **EXITED**
-	if(fileLinesWritten < 10000) {
-		fprintf(fp, "PROCESS: #%i exited critical section @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
-		fileLinesWritten++;
-	}
+	/* Update user log of action to exit CS */
+	fprintf(fp, "USER: with pid:%i exited critical section at %03i.%05lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);	
+	printf("USER: with pid:%i exited critical section at %03i.%05lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
 	
-	// Assign turn to next waiting process; change own flag to idle
+	/* Assign turn to next process waiting and change own flag to idle */
 	shm->turn = j;
 	shm->flag[i] = idle;
 	
-	// Give OSS back control
+	/* About to give control back to OSS */
 	printf("USER: #%i quitting and relinquishing control @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
-	if(fileLinesWritten < 10000) {
-		fprintf(fp, "USER: #%i quitting and relinquishing control @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
-		fileLinesWritten++;
-	}
+	fprintf(fp, "USER: #%i quitting and relinquishing control @ %03i.%09lu\n", getpid(), shm->timePassedSec, shm->timePassedNansec);
 
 	usleep(1000);
 	
@@ -243,7 +226,7 @@ backToWait:
 		signalHandler();
 	}
 	
-	// Wait for OSS to take over
+	/* Waiting for OSS */
 	while(msgrcv(msgid_critical, &msgbuff_critical, MSGSZ, 1, 0) < 0);
 	
 	pcb[i]->finishSec = shm->timePassedSec;
@@ -251,6 +234,17 @@ backToWait:
 	killAll();
 	exit(3);
 	
+}
+/* END USER MAIN */
+
+/*  Returns the index of the process control block the current process is at */
+int getIndex() {
+	int i;
+	for(i = 0; i < MAX_USER_PROCESSES; i++) {
+		if(pcb[i]->pid == getpid()) {
+			return i;
+		}
+	}
 }
 
 /* Completely Terminates the child process  */
@@ -267,13 +261,4 @@ void killAll() {
 	shmdt(pcb);
 	shmdt(shm);
 	fclose(fp);
-}
-
-int getIndex() {
-	int i;
-	for(i = 0; i < MAX_USER_PROCESSES; i++) {
-		if(pcb[i]->pid == getpid()) {
-			return i;
-		}
-	}
 }

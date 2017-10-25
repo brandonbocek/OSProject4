@@ -273,16 +273,13 @@ int main(int argc, char* argv[]) {
 		}
 		
 		
-		// If a child finished, clear the PCB and reset for a new child to spawn
+		/* Clear the PCB if a child terminated and update the user and the log */
 		if ((wpid = waitpid(-1, &status, WNOHANG)) > 0 ) {
 			index--;
 			for(c = 0; c < MAX_USER_PROCESSES; c++) {
 				if(pcb[c]->pid == wpid) {
 					printf("OSS: Terminating process #%i @ %03i.%09lu\n", wpid, shm->timePassedSec, shm->timePassedNansec);
-					if(fileLinesWritten < 10000) {
-						fprintf(fp, "OSS: Terminating process #%i @ %03i.%09lu\n", wpid, shm->timePassedSec, shm->timePassedNansec);
-						fileLinesWritten++;
-					}
+					fprintf(fp, "OSS: Terminating process #%i @ %03i.%09lu\n", wpid, shm->timePassedSec, shm->timePassedNansec);
 					
 					bitArray[c] = 0;
 					shm->scheduledCount--;
@@ -295,8 +292,8 @@ int main(int argc, char* argv[]) {
 		}
 		usleep(MASTER_OVERHEAD_TIME * 40000);
 		totalTimesLooped++;
-	}
-	
+	}	
+		/* END MAIN LOOP */
 	
 	for(c = 0; c < queueCleanUp->numProcesses; c++) {
 		queueCleanUp->pid[c] = 0;
@@ -310,6 +307,8 @@ int main(int argc, char* argv[]) {
 	sleep(1);
 	return 0;
 }
+
+/* END MAIN */
 
 void addToQueue(int queue, pid_t pid, char *word) {
 	int c;
@@ -721,8 +720,8 @@ void scheduleProcess() {
 	}
 }
 
+/* Completely Terminates the program and prints final stats */
 void signalHandler() {
-
 	printStats();	
 	printf("A signal was given. Everything should clear.\n");
 	killAll();
