@@ -1,0 +1,14 @@
+Brandon Bocek
+10/25/2017
+CS 4760
+Project 4
+
+To compile: type 'make' or 'make all'
+
+To run: type   './oss'
+			or './oss -h' for the help menu to display
+			or './oss -l file to write to'
+
+Overview:
+
+	The program ends when the user gives a control-c signal.

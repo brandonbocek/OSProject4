@@ -26,12 +26,11 @@ static unsigned long long int totalProcessCPUTime = 0;
 
 
 int main(int argc, char* argv[]) {
-	// Signal Handler
+	/* Setting up the signal handler */
 	signal(SIGINT, signalHandler);
 	signal(SIGSEGV, signalHandler);
 	
 	// Logfile name and execl binaries path
-	const char *PATH = "./user";
 	char *fileName = "ossLog.out";
 	
 	/* Seeding generator for random numbers */
@@ -179,7 +178,7 @@ int main(int argc, char* argv[]) {
 			if (pid == 0) {
 				
 				/* ./user's process is spawned */
-				execl(PATH, NULL);
+				execl("./user", NULL);
 
 				/* Exit if the exec failed */
 				_exit(EXIT_FAILURE);
@@ -189,13 +188,10 @@ int main(int argc, char* argv[]) {
 
 			/* Save the process to the pcb and update the user and the log with process creation info */
 			} else {
-				pcb[result]->pid = pid;
 				pcb[result]->index = result;
-				printf("OSS: Created Process with ID:%i @ %03i.%09lu - PROCESS #%i - INDEX: %i\n", pid, shm->timePassedSec, shm->timePassedNansec, totalProcesses, index);
-				if(fileLinesWritten < 10000) {
-					fprintf(fp, "OSS: Created #%i @ %03i.%09lu - PROCESS #%i - INDEX: %i\n", pid, shm->timePassedSec, shm->timePassedNansec, totalProcesses, index);
-					fileLinesWritten++;
-				}
+				pcb[result]->pid = pid;
+				printf("OSS: Created Process with ID:%i at %03i.%09lu... PROCESS #%i @ INDEX: %i\n", pid, shm->timePassedSec, shm->timePassedNansec, totalProcesses, index);
+				fprintf(fp, "OSS: Created Process with ID:%i at %03i.%09lu... PROCESS #%i @ INDEX: %i\n", pid, shm->timePassedSec, shm->timePassedNansec, totalProcesses, index);
 			}
 		} else {
 			pid = -1;
@@ -203,7 +199,7 @@ int main(int argc, char* argv[]) {
 		
 		usleep(MASTER_OVERHEAD_TIME * 10000);
 		
-		// If a child was spawned, add it to the queue
+		/* If a child was spawned, add it to the queue */
 		if(result != -1 && pid != -1) {
 			addToQueue(pcb[result]->queue, pid, added);
 		}
@@ -213,9 +209,9 @@ int main(int argc, char* argv[]) {
 		
 		// If OSS receives a message from a child requesting control
 		if(msgrcv(msgid_receiving, &msgbuff_receive, MSGSZ, 1, IPC_NOWAIT) > 0) {
-			printf("OSS: Giving control to process #%s @ %03i.%09lu\n", msgbuff_receive.mtext, shm->timePassedSec, shm->timePassedNansec);
+			printf("OSS: Handing control to #%s process at %03i.%09lu\n", msgbuff_receive.mtext, shm->timePassedSec, shm->timePassedNansec);
 			if(fileLinesWritten < 10000) {
-				fprintf(fp, "OSS: Giving control to process #%s @ %03i.%09lu\n", msgbuff_receive.mtext, shm->timePassedSec, shm->timePassedNansec);
+				fprintf(fp, "OSS: Handing control to #%s process %03i.%09lu\n", msgbuff_receive.mtext, shm->timePassedSec, shm->timePassedNansec);
 				fileLinesWritten++;
 			}
 			
@@ -229,8 +225,7 @@ int main(int argc, char* argv[]) {
 			
 			// Message child saying it has control
 			if(msgsnd(msgid_critical, &msgbuff_critical, MSGSZ, IPC_NOWAIT) < 0) {
-				perror("msgsnd");
-				printf("The reply to child did not send\n");
+				printf("ERROR: The msg to child process did not send\n");
 				signalHandler();
 			}
 			
@@ -251,13 +246,12 @@ int main(int argc, char* argv[]) {
 			sprintf(msgbuff_critical.mtext, "%i", temp);
 			
 			if(msgsnd(msgid_critical, &msgbuff_critical, MSGSZ, IPC_NOWAIT) < 0) {
-				perror("msgsnd");
-				printf("The reply to child did not send\n");
+				printf("ERROR: The msg to child process did not send\n");
 				signalHandler();
 			}
 			
 			
-			// If the child did not finish, requeue
+			/* Requeue the child if it failed to finish */
 			if(atoi(msgbuff_receive.mtext) == 1) {
 				if(msgbuff_receive.mtype <= 5E8) {
 					addToQueue(1, temp, readded);
@@ -271,7 +265,7 @@ int main(int argc, char* argv[]) {
 
 		usleep(MASTER_OVERHEAD_TIME * 10000);
 		
-		// Clean up queue
+		/* Make room in the cleanup queue  */
 		if(queueCleanUp->numProcesses > 5) {
 			queueCleanUp->pid[0] = 0;
 			queueCleanUp->numProcesses--;
@@ -517,18 +511,17 @@ void getProcessStats(int indx) {
 	
 	totalTime += (pcb[indx]->finishSec - pcb[indx]->creationSec);
 	totalProcessCPUTime += pcb[indx]->cpuTime;
-	printf("-----------------------------------------------------------------------------------\n");
-	printf("----------Process %i was in the system for %i.%.9u seconds-----------------\n", pcb[indx]->pid, (pcb[indx]->finishSec - pcb[indx]->creationSec), temp/1E9);
-	printf("--------------Process %i used %f seconds of CPU time----------------------\n", pcb[indx]->pid, (double)(pcb[indx]->cpuTime/1E9));
-	printf("-----------------------------------------------------------------------------------\n");
-	
-	if(fileLinesWritten < 9994) {					
-		fprintf(fp, "-----------------------------------------------------------------------------------\n");
-		fprintf(fp,"----------Process %i was in the system for %i.%.9u seconds-----------------\n", pcb[indx]->pid, (pcb[indx]->finishSec - pcb[indx]->creationSec), temp/1E9);
-		fprintf(fp, "--------------Process %i used %f seconds of CPU time---------------------\n", pcb[indx]->pid, (double)(pcb[indx]->cpuTime/1E9));
-		fprintf(fp, "-----------------------------------------------------------------------------------\n");
-		fileLinesWritten += 4;
-	}
+
+	/*  Update the user and the log */
+	fprintf(fp, "**********************************************\n");
+	fprintf(fp, "\tProcess with PID:%i - Number of CPU Seconds used:%f seconds\n", pcb[indx]->pid, (double)(pcb[indx]->cpuTime/1E9));
+	fprintf(fp, "\tThis process was in the system for a total of:%i.%.5u seconds\n", (pcb[indx]->finishSec - pcb[indx]->creationSec), temp/1E9);
+	fprintf(fp, "**********************************************\n");
+
+	printf("**********************************************\n");
+	printf("\tProcess with PID:%i - Number of CPU Seconds used:%f seconds\n", pcb[indx]->pid, (double)(pcb[indx]->cpuTime/1E9));
+	printf("\tThis process was in the system for a total of:%i.%.5u seconds\n", (pcb[indx]->finishSec - pcb[indx]->creationSec), temp/1E9);
+	printf("**********************************************\n");	
 	
 	/*  Reset the PCB */	
 	pcb[indx]->alive = 0;
@@ -545,6 +538,7 @@ void getProcessStats(int indx) {
 	pcb[indx]->moveFlag = 0;
 }
 
+/*  Cleanup */
 void killAll() {
 	msgctl(msgid_sending, IPC_RMID, NULL);
 	msgctl(msgid_receiving, IPC_RMID, NULL);
@@ -569,26 +563,6 @@ void printHelpMenu() {
 	//printf("\t-s *# of slave processes to spawn*\t\tie. '-s 5'\n");
 	printf("\t-l *log file used*\t\t\t\tie. '-l log.out'\n");
 	//printf("\t-t *time in seconds the master will terminate*\tie. -t 20\n\n");
-}
-
-void printQueues() {
-	int c;
-	for(c = 0; c < MAX_USER_PROCESSES; c++) {
-		printf("QueueOne SLOT %i -- %i\n", c, queueOne->pid[c]);
-	}
-	
-	for(c = 0; c < MAX_USER_PROCESSES; c++) {
-		printf("QueueTwo SLOT %i -- %i\n", c, queueTwo->pid[c]);
-	}
-	
-	for(c = 0; c < MAX_USER_PROCESSES; c++) {
-		printf("QueueThree SLOT %i -- %i\n", c, queueThree->pid[c]);
-	}
-	
-	for(c = 0; c < MAX_USER_PROCESSES; c++) {
-		printf("QueueCleanUp SLOT %i -- %i\n", c, queueCleanUp->pid[c]);
-	}
-	printf("----------------------\n");
 }
 
 

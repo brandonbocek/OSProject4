@@ -1,19 +1,29 @@
+/*
+ *  Brandon Bocek
+ *  10/20/17
+ *  CS 4760 Project 4
+ */
 
 #ifndef SCHEDULER_H
 #define SCHEDULER_H
 
-#include <ctype.h>
-#include <errno.h>
-#include <signal.h>
-#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/ipc.h>
-#include <sys/msg.h>
-#include <sys/shm.h>
-#include <sys/types.h>
-#include <time.h>
+#include <string.h>
+#include <ctype.h>
 #include <unistd.h>
+#include <errno.h>
+#include <stdint.h>
+#include <signal.h>
+#include <time.h>
+#include <math.h>
+#include <signal.h>
+#include <sys/sem.h>
+#include <sys/shm.h>
+#include <sys/msg.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/ipc.h>
 
 #define IO_INTERRUPT_CHANCE 5 // This number is multipled by 1000000000 to give a time in nanoseconds -- Lower number = more frequent interupts -- Higher number reduces frequency, but does not eliminate them
 #define MASTER_OVERHEAD_TIME 5 // This number is multiplied by 10,000 to give a process sleep time in microseconds. DEFAULT: 5 = .05 second sleep per cycle (spread out over cycle)
@@ -80,8 +90,6 @@ key_t key = 325453;
 key_t pcbKey = 9032582;
 key_t toChild_key = 543262;
 key_t toParent_key = 3925744;
-
-//long getRightTime();
 
 void addToQueue(int, pid_t, char*);
 void advanceQueues();
