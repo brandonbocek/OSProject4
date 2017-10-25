@@ -75,7 +75,7 @@ int main(int argc, char* argv[]) {
 		}
 	}
 	
-	// Attach shared memory (clock) and Process Control Blocks
+	/* Shared memory attach for clock and PCBs */
 	if((shmid = shmget(key, sizeof(struct SharedMemory *) * 3, IPC_CREAT | 0666)) < 0) {
 		fprintf(stderr, "ERROR: shmget() faild.\n");
 		exit(EXIT_FAILURE);
@@ -99,12 +99,11 @@ int main(int argc, char* argv[]) {
 	fp = fopen(fileName, "w");
 	if(fp == NULL) {
 		printf("Couldn't open file");
-		errno = ENOENT;
 		killAll();
 		exit(EXIT_FAILURE);
 	}
 	
-	// Initialize the queues and set everything to 0
+	/*  The Queues are set up */
 	shm->turn = 0;
 	shm->scheduledCount = 0;
 	shm->timePassedSec = 0;
@@ -692,38 +691,37 @@ int removeFromQueue(int queue, pid_t pid) {
 }
 
 
-
 void scheduleProcess() {
-	int c;
+	int i;
 	usleep(MASTER_OVERHEAD_TIME * 10000);
 	
 	/* Loop through all the processes in this queue */
-	for(c = 0; c < queueThree->numProcesses; c++) {
+	for(i = 0; i < queueThree->numProcesses; i++) {
 
 
 		/*  If the time in queue is greater than 2 seconds, the process is alive and did not go last */
-		if(((shm->timePassedSec - pcb[queueThree->index[c]]->inQueueSec) > 2) && (pcb[queueThree->index[c]]->moveFlag == 0) && (pcb[queueThree->index[c]]->alive == 1)) {
-			pcb[queueThree->index[c]]->queue = 2;
-			pcb[queueThree->index[c]]->moveFlag = 1;
+		if(((shm->timePassedSec - pcb[queueThree->index[i]]->inQueueSec) > 2) && (pcb[queueThree->index[i]]->moveFlag == 0) && (pcb[queueThree->index[i]]->alive == 1)) {
+			pcb[queueThree->index[i]]->queue = 2;
+			pcb[queueThree->index[i]]->moveFlag = 1;
 			
 			usleep(MASTER_OVERHEAD_TIME * 10000);
 
 		/*  Move starving process from queue 3 to queue 2 */	
-			addToQueue(2, queueThree->pid[c], "Moved Starving");
-			removeFromQueue(3, queueThree->pid[c]);
+			addToQueue(2, queueThree->pid[i], "Moved Starving");
+			removeFromQueue(3, queueThree->pid[i]);
 			return;
 		}
 	}
 	
-	for(c = 0; c < queueTwo->numProcesses; c++) {
-		if(((shm->timePassedSec - pcb[queueTwo->index[c]]->inQueueSec) > 2) && (pcb[queueTwo->index[c]]->moveFlag == 0) && (pcb[queueTwo->index[c]]->alive == 1)) {
-			pcb[queueTwo->index[c]]->queue = 1;
-			pcb[queueTwo->index[c]]->moveFlag = 1;
+	for(i = 0; i < queueTwo->numProcesses; i++) {
+		if(((shm->timePassedSec - pcb[queueTwo->index[i]]->inQueueSec) > 2) && (pcb[queueTwo->index[i]]->moveFlag == 0) && (pcb[queueTwo->index[i]]->alive == 1)) {
+			pcb[queueTwo->index[i]]->queue = 1;
+			pcb[queueTwo->index[i]]->moveFlag = 1;
 			
 			usleep(MASTER_OVERHEAD_TIME * 10000);
 		/*  Move starving process from queue 2 to queue 1 */
-			addToQueue(1, queueTwo->pid[c], "Moved Starving");
-			removeFromQueue(2, queueTwo->pid[c]);
+			addToQueue(1, queueTwo->pid[i], "Moved Starving");
+			removeFromQueue(2, queueTwo->pid[i]);
 			return;
 		}
 	}
@@ -771,10 +769,10 @@ void scheduleProcess() {
 void signalHandler() {
 
 	printStats();	
+	printf("A signal was given. Everything should clear.\n");
 	killAll();
     pid_t id = getpgrp();
     killpg(id, SIGINT);
-	printf("Signal received... terminating master\n");
 	sleep(1);
     exit(EXIT_SUCCESS);
 }
