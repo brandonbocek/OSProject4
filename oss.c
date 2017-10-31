@@ -1,87 +1,54 @@
 
 #include "scheduler.h"
 
+#define MAX_SLAVES 20
+#define MAX_PCB_CREATED 18
+#define MAX_RUN_TIME 20000000000 //20 seconds
+#define MAX_TIME_SPAWN 200000000 //2 seconds
 #define QUEUE_SIZE 20
 #define QUANTUM_LENGTH 1
 #define ALPHA 1
 #define BETA 1
+#define CLOCK_ITERATION 1000
 
-//key time variables
-static const long long CLOCK_ITERATION = 1000; //.0001s
-static const int MAX_PCB_CREATED = 18;
-static const int MAX_TIME_SPAWN = 200000000; //.1s
-static const int MAX_SCHEDULED_TIME = 900000000; //.09s THE QUANTUM TIME
-static const long MAX_TIME = 20000000000; //20s max run time
-
-
-
-//static variables
-static long long *virtualClock; //virtual clock in nanoseconds
-static int *signalRecieved; //flag to tell current child when to exit/die
-static pid_t *scheduledProcess; //PID of next process being processed
-static int clockShmid, signalShmid, pcbGroupShmid, scheduleShmid;
-static int numSlaves, timeToTerminate;
-static char *logFileName;
-static FILE *fp;
-static int childStatus;
-static int messageQueueID;
-static pid_t child_pid;
-static int childNum;
-static int childProcessed;
-static struct PCB *pcbGroup; //process control block struct
-static pid_t queue1[QUEUE_SIZE], queue2[QUEUE_SIZE],queue3[QUEUE_SIZE]; //queues
-static  int loopIncremement;
-static long long idleTime;
-static long long timeToSpawn;
-static long long turnaroundTime;
-static long long processWaitTime;
-static long long totalProcessLifeTime;
-static int totalNumProcesses;
-static int processNumberBeingSpawned;
-static pid_t processedPID;
-static int maxNumSlaves;
-
-//static prototypes
-static void createAttachShmAndMsgQs();
-static void evaluateCmdLineArguments(int, char **);
-static void printHelpMenu();
-static void interruptHandler(int);
-static void cleanup();
-static void detachShmAndDeleteMsgQ();
-static void pcbInitialization();
-static void initializeQs();
-static void printQueue(pid_t *);
-static pid_t scheduleNextProcess();
-static void forkMasterExecuteSlave();
-static pid_t popFront(pid_t *m ,char*);
-static void pushFront(pid_t, pid_t*, char*);
-static void pushRear(pid_t, pid_t*, char*, int);
-static int waitForMessageFromChild(int);
-static bool processShouldBeMoved(pid_t *q, int index, int queueNum);
-static void moveSomeProcessesToAnotherQ();
-static void updateStatsForFinalReport(int);
-static void updateProcessInfoAfterRunning(int);
-static void printFinalStats();
-
-
+// Global Variables
+struct PCB *pcbGroup;
+int *signalRecieved;
+pid_t *scheduledProcess;
+int clockShmid, signalShmid, pcbGroupShmid, scheduleShmid;
+FILE *fp;
+char *fileName;
+int msgQueueID;
+int childStatus;
+pid_t child_pid;
+int vclockIncrement;
+long long idleTime;
+long long timeToSpawn;
+long long processWaitTime;
+long long turnaroundTime;
+long long timeProcessLifespan;
+long long *virtualClock;
+int totalNumProcesses;
+int pcbIndexSpawned;
+pid_t processedPID;
+int maxNumSlavesCanCreate;
+int alarmTimeLimit;
+pid_t queue1[QUEUE_SIZE];
+pid_t queue2[QUEUE_SIZE];
+pid_t queue3[QUEUE_SIZE];
 
 int main(int argc, char **argv) {
 
-    numSlaves = 5;
-    timeToTerminate = 20;
-    logFileName = "log.out"; 
-    childNum = 1;
-    childProcessed = 0;
-	//new cmd line arguments
-	maxNumSlaves = 20;
-
-    //initialize other key variablesstatic long long idleTime;
+	// initialize global vars
+    alarmTimeLimit = 20;
+    fileName = "log.out"; 
+	maxNumSlavesCanCreate = 20;
     timeToSpawn = 0;
+	timeProcessLifespan = 0;
+    totalNumProcesses = 0;
     turnaroundTime= 0;
     processWaitTime = 0;
-    totalProcessLifeTime = 0;
-    totalNumProcesses = 0;
-    processNumberBeingSpawned = -1;
+    pcbIndexSpawned = -1;
 	
 	int opt;
 	/* Handling command line arguments w/ ./oss  */
@@ -93,7 +60,7 @@ int main(int argc, char **argv) {
 					
 			case 'l':
 				/*  Change the name of the file to write to */
-				logFileName = optarg;
+				fileName = optarg;
 	
 			case '?':
 				/* User entered a valid flag but nothing after it */
@@ -119,13 +86,13 @@ int main(int argc, char **argv) {
     signal(SIGQUIT, SIG_IGN);
 
     //seed the alarm with the desired time to terminate
-    alarm(timeToTerminate);
+    alarm(alarmTimeLimit);
 
 
-    //Open file and mark the beginning of the new log
-    fp = fopen(logFileName, "w");
+    //Set file pointer to open file 
+    fp = fopen(fileName, "w");
     if (!fp) {
-        fprintf(stderr, "Error opening log file\n");
+        fprintf(stderr, "Error: Failed to open log file\n");
         abort();
     }
 
@@ -144,16 +111,16 @@ int main(int argc, char **argv) {
         //if time to spawn child is true
         if((*virtualClock) >= timeToSpawn ) {
             //spawn child and set new random time to spawn
-            forkMasterExecuteSlave();
+            forkAndExecChild();
             timeToSpawn = (*virtualClock) + rand() % MAX_TIME_SPAWN;
         }
 
-        *scheduledProcess = scheduleNextProcess();
+        *scheduledProcess = getScheduledProcessPid();
 		
 		/* Increment the virtual clock */
-        loopIncremement = 1 + rand() % CLOCK_ITERATION;
-        idleTime += loopIncremement;
-        *virtualClock += loopIncremement;
+        vclockIncrement = 1 + rand() % CLOCK_ITERATION;
+        idleTime += vclockIncrement;
+        *virtualClock += vclockIncrement;
 
         /* Waiting for message to be recieved from child before possibly clearing its pcb */
         processedPID = waitForMessageFromChild(3);
@@ -165,7 +132,7 @@ int main(int argc, char **argv) {
 		/* Run the Scheduling Algorithm */
 		moveSomeProcessesToAnotherQ();
 
-    } while(*virtualClock < MAX_TIME && *signalRecieved && totalNumProcesses <= maxNumSlaves);
+    } while(*virtualClock < MAX_RUN_TIME && *signalRecieved && totalNumProcesses <= maxNumSlavesCanCreate);
 
 
     // End of program cleanup
@@ -176,75 +143,69 @@ int main(int argc, char **argv) {
 }	/* END MAIN */
 
 
-static void forkMasterExecuteSlave() {
+ void forkAndExecChild() {
 
-    processNumberBeingSpawned = -1; //reinitialize variable
+	// Resetting for new fork & exec
+    pcbIndexSpawned = -1;
 
     int i;
 
     //find first pcb for a given process that's open
     for(i = 0; i < MAX_PCB_CREATED; i++) {
         if(pcbGroup[i].processID == 0) {
-            processNumberBeingSpawned = i;
-            pcbGroup[i].processID = 1;
+            pcbIndexSpawned = i;
             break;
         }
     }
     //if PCB full
-    if(processNumberBeingSpawned == -1) {
+    if(pcbIndexSpawned == -1) {
         printf("Can't spawn anymore processes, PCB is full.\n");
     }
 
     //if not spawn processes
-    if(processNumberBeingSpawned != -1) {
+    if(pcbIndexSpawned != -1) {
         totalNumProcesses++;
 
-        //exit on bad fork
         if ((child_pid = fork()) < 0) {
-            fprintf(stderr, "Failed to fork Child# %d\n", childNum);
+            fprintf(stderr, "Error: Failed to fork child\n");
+			cleanup();
         }
 
         //If good fork, continue to call exec with all the necessary args
         if (child_pid == 0) {
 
-            //pcbGroup[processNumberBeingSpawned].queueSpecificTime = queue1TimeValue;
-            pcbGroup[processNumberBeingSpawned].quantumTime =  1 + rand() % MAX_SCHEDULED_TIME;
-            pcbGroup[processNumberBeingSpawned].spawnTime = (*virtualClock);
-            pcbGroup[processNumberBeingSpawned].processID = getpid();
-
-            printf("OSS: Generating process with PID %d with duration %llu.%09llu  at time %llu.%09llu\n", getpid(), pcbGroup[processNumberBeingSpawned].quantumTime / NANOPERSECOND, pcbGroup[processNumberBeingSpawned].quantumTime % NANOPERSECOND,
+            pcbGroup[pcbIndexSpawned].spawnTime = (*virtualClock);
+            pcbGroup[pcbIndexSpawned].processID = getpid();
+			pcbGroup[pcbIndexSpawned].quantumTime = QUANTUM_LENGTH * NANOPERSECOND;
+			
+			
+            printf("OSS: Generating process with PID %d with duration %llu.%09llu  at time %llu.%09llu\n", getpid(), pcbGroup[pcbIndexSpawned].quantumTime / NANOPERSECOND, pcbGroup[pcbIndexSpawned].quantumTime % NANOPERSECOND,
                    (*virtualClock) / NANOPERSECOND, (*virtualClock) % NANOPERSECOND);
 
-            fprintf(fp, "OSS: Generating process with PID %d with duration %llu.%09llu  at time %llu.%09llu\n", getpid(), pcbGroup[processNumberBeingSpawned].quantumTime / NANOPERSECOND, pcbGroup[processNumberBeingSpawned].quantumTime % NANOPERSECOND,
+            fprintf(fp, "OSS: Generating process with PID %d with duration %llu.%09llu  at time %llu.%09llu\n", getpid(), pcbGroup[pcbIndexSpawned].quantumTime / NANOPERSECOND, pcbGroup[pcbIndexSpawned].quantumTime % NANOPERSECOND,
                     (*virtualClock) / NANOPERSECOND, (*virtualClock) % NANOPERSECOND);
             //close stream was causing issues with printing
             fclose(fp);
 
-            //main block to pass arguments to children
+            char arg1[25], arg2[25], arg3[25], arg4[25], arg5[26], arg6[10];
 
-            //pass message queue ID
-            char arg1[25];
-            sprintf(arg1, "%i", messageQueueID);
+            //passing message queue ID
+            sprintf(arg1, "%i", msgQueueID);
 
-            //pass clock segment ID
-            char arg2[25];
+            //passing clock segment ID
             sprintf(arg2, "%i", clockShmid);
 
-            //pass signal segment ID
-            char arg3[25];
+            //passing signal segment ID
             sprintf(arg3, "%i", signalShmid);
 
-            //pass pcb segment id
-            char arg4[25];
+            //passing pcb segment id
             sprintf(arg4,"%i",pcbGroupShmid);
 
-            //pass scheduled process segment ID
-            char arg5[25];
+            //passing scheduled process segment ID
             sprintf(arg5,"%i",scheduleShmid);
 
-            //pass proces number being spawned
-            char arg6[5];
-            sprintf(arg6,"%i", processNumberBeingSpawned);
+            //passing process number being spawned
+            sprintf(arg6,"%i", pcbIndexSpawned);
 
             //invoke slave executable and pass arguments
             execl("./user", "user", arg1, arg2, arg3, arg4, arg5, arg6, (char *) NULL);
@@ -252,34 +213,28 @@ static void forkMasterExecuteSlave() {
         }
 
     }
-    //when process spawned, push to queue 1
-    if(processNumberBeingSpawned != -1) {
-        while(pcbGroup[processNumberBeingSpawned].processID <= 1);
-        pushRear(pcbGroup[processNumberBeingSpawned].processID,queue1, "Queue 1", processNumberBeingSpawned);
+    //when process spawned, push to highest priotity queue
+    if(pcbIndexSpawned != -1) {
+        while(pcbGroup[pcbIndexSpawned].processID <= 1);
+        pushRear(pcbGroup[pcbIndexSpawned].processID,queue1, "Queue 1", pcbIndexSpawned);
 
     }
 }
 
 //check for message from slave indicating burst finished
-static int waitForMessageFromChild(int msgtype) {
+ int waitForMessageFromChild(int msgtype) {
 
     struct childMsg cMsg;
 
     while((*scheduledProcess) != -1) {
 
 
-        if (msgrcv(messageQueueID, (void *) &cMsg, sizeof (cMsg.infoOfUser.msgText), msgtype, MSG_NOERROR | IPC_NOWAIT) == -1) {
+        if (msgrcv(msgQueueID, (void *) &cMsg, sizeof (cMsg.infoOfUser.msgText), msgtype, MSG_NOERROR | IPC_NOWAIT) == -1) {
             if (errno != ENOMSG) {
                 fprintf(stderr,"Unexpected message type found in master\n");
             }
         } else {
             int processNum = atoi(cMsg.infoOfUser.msgText);
-
-            printf("OSS: Process with PID %d has ran for %llu.%09llu out of %llu.%09llu\n",pcbGroup[processNum].processID,pcbGroup[processNum].totalTimeRan / NANOPERSECOND, pcbGroup[processNum].totalTimeRan % NANOPERSECOND,
-                   pcbGroup[processNum].quantumTime / NANOPERSECOND,pcbGroup[processNum].quantumTime % NANOPERSECOND );
-            fprintf(fp,"OSS: Process with PID %d has ran for %llu.%09llu out of %llu.%09llu\n",pcbGroup[processNum].processID,pcbGroup[processNum].totalTimeRan / NANOPERSECOND, pcbGroup[processNum].totalTimeRan % NANOPERSECOND,
-                    pcbGroup[processNum].quantumTime / NANOPERSECOND,pcbGroup[processNum].quantumTime % NANOPERSECOND );
-
             return processNum;
         }
 
@@ -287,14 +242,14 @@ static int waitForMessageFromChild(int msgtype) {
 }
 
 //update average turn around time after each process finishes
-static void updateStatsForFinalReport(int pcb) {
+ void updateStatsForFinalReport(int pcb) {
 
     long long startToFinish = (*virtualClock) - pcbGroup[pcb].spawnTime;
-    totalProcessLifeTime += startToFinish;
+    timeProcessLifespan += startToFinish;
     processWaitTime += startToFinish - pcbGroup[pcb].quantumTime;
 }
 
-static bool processShouldBeMoved(pid_t *q, int index, int queueNum){
+ bool processShouldBeMoved(pid_t *q, int index, int queueNum){
 	int i, j, count;
 	long long sum, avg, currentWait;
 	long long startToFinish;
@@ -317,6 +272,8 @@ static bool processShouldBeMoved(pid_t *q, int index, int queueNum){
 			}
         }
     }
+	
+	// The average wait time for the queue the process is in
 	avg = sum / count;
 	
 	if(queueNum == 1 && (ALPHA*avg > currentWait)) {
@@ -327,7 +284,7 @@ static bool processShouldBeMoved(pid_t *q, int index, int queueNum){
 	return 0;
 }
 
-static void moveSomeProcessesToAnotherQ(void) {
+ void moveSomeProcessesToAnotherQ(void) {
 	
 	int i;
 	pid_t tempPid;
@@ -351,14 +308,14 @@ static void moveSomeProcessesToAnotherQ(void) {
 
 
 //update process info after burst for that round completed
-static void updateProcessInfoAfterRunning(int index) {
+ void updateProcessInfoAfterRunning(int index) {
 
 	pid_t cPid = pcbGroup[index].processID;
 
 	long long cpuBurst = pcbGroup[index].burst;
 
-    printf("OSS: Process with PID:%d just ran for %llu.%09llu seconds\n", pcbGroup[index].processID, cpuBurst / NANOPERSECOND, cpuBurst % NANOPERSECOND);
-    fprintf(fp,"OSS: Process with PID:%d just ran for %llu.%09llu seconds\n", pcbGroup[index].processID, cpuBurst / NANOPERSECOND, cpuBurst % NANOPERSECOND);
+    printf("OSS: Process with PID: %d just ran for %llu.%09llu seconds\n", pcbGroup[index].processID, cpuBurst / NANOPERSECOND, cpuBurst % NANOPERSECOND);
+    fprintf(fp,"OSS: Process with PID: %d just ran for %llu.%09llu seconds\n", pcbGroup[index].processID, cpuBurst / NANOPERSECOND, cpuBurst % NANOPERSECOND);
 
     if(cPid == 0) {
 	
@@ -375,29 +332,26 @@ static void updateProcessInfoAfterRunning(int index) {
 
 }
 
-//get first process in a non empty queue for processing
-
-static  pid_t scheduleNextProcess(void) {
-
-    //look at first element in queue, process first queue where it isn't empty at position 100000000
+//Read from highest priority queue, then next highest, the finally lowest priority
+pid_t getScheduledProcessPid(void) {
 
     if(queue1[0] != 0) {
 		
         fprintf(fp, "OSS: Dispatching process %d from Queue 1 at time %llu.%09llu\n", queue1[0],(*virtualClock) / NANOPERSECOND, (*virtualClock)  % NANOPERSECOND);
         printf("OSS: Dispatching process %d from Queue 1 at time %llu.%09llu\n", queue1[0],(*virtualClock) / NANOPERSECOND, (*virtualClock)  % NANOPERSECOND);
-		return popFront(queue1, "Queue 1");
+		return getPIDfromQ(queue1, "Queue 1");
     }
     else if(queue2[0] != 0) {
 
         fprintf(fp, "OSS: Dispatching process %d from Queue 2 at time %llu.%09llu\n", queue2[0],(*virtualClock) / NANOPERSECOND, (*virtualClock)  % NANOPERSECOND);
         printf("OSS: Dispatching process %d from Queue 2 at time %llu.%09llu\n", queue2[0],(*virtualClock) / NANOPERSECOND, (*virtualClock)  % NANOPERSECOND);
-		return popFront(queue2, "Queue 2");
+		return getPIDfromQ(queue2, "Queue 2");
     }
     else if(queue3[0] != 0) {
 
         fprintf(fp, "OSS: Dispatching process %d from Queue 3 at time %llu.%09llu\n", queue3[0],(*virtualClock) / NANOPERSECOND, (*virtualClock)  % NANOPERSECOND);
         printf("OSS: Dispatching process %d from Queue 3 at time %llu.%09llu\n", queue3[0],(*virtualClock) / NANOPERSECOND, (*virtualClock)  % NANOPERSECOND);
-		return popFront(queue3, "Queue 3");
+		return getPIDfromQ(queue3, "Queue 3");
     }
     else {
         return -1;
@@ -405,9 +359,8 @@ static  pid_t scheduleNextProcess(void) {
 
 }
 
-
-//push pid to front of array
-static void pushFront(pid_t pid, pid_t *q, char* qID) {
+//place a PID to front of a queue
+ void pushFront(pid_t pid, pid_t *q, char* qID) {
 
     int i;
 
@@ -419,8 +372,8 @@ static void pushFront(pid_t pid, pid_t *q, char* qID) {
 
 }
 
-//push pid to back of queue
-static void pushRear(pid_t pid, pid_t *q, char *qID,int pcbLocation) {
+//place a PID to back of a queue
+ void pushRear(pid_t pid, pid_t *q, char *qID,int pcbLocation) {
 
     int i;
     for(i = 0; i < QUEUE_SIZE; i++) {
@@ -431,8 +384,10 @@ static void pushRear(pid_t pid, pid_t *q, char *qID,int pcbLocation) {
     }
 }
 
-//pop pid off front of queue, shift array then return pid
-static pid_t popFront(pid_t *q, char *qID) {
+//gets called when a process is scheduled
+//assigns potenitally new quantum time based on queue
+//returns pid at front of the specified Queue
+ pid_t getPIDfromQ(pid_t *q, char *qID) {
 
 //get first element ID
     pid_t toReturnPid = q[0];
@@ -454,11 +409,11 @@ static pid_t popFront(pid_t *q, char *qID) {
 			pcbGroup[i].toDoRandomNum = r;
 			
 			if(strcmp(qID, "Queue 1") == 0) {
-				pcbGroup[i].quantum = QUANTUM_LENGTH * NANOPERSECOND;
+				pcbGroup[i].quantumTime = QUANTUM_LENGTH * NANOPERSECOND;
 			} else if(strcmp(qID, "Queue 2") == 0) {
-				pcbGroup[i].quantum = QUANTUM_LENGTH * NANOPERSECOND / 2;
+				pcbGroup[i].quantumTime = QUANTUM_LENGTH * NANOPERSECOND / 2;
 			} else if(strcmp(qID, "Queue 3") == 0) {
-				pcbGroup[i].quantum = QUANTUM_LENGTH * NANOPERSECOND / 4;
+				pcbGroup[i].quantumTime = QUANTUM_LENGTH * NANOPERSECOND / 4;
 			}
 		}
 	}
@@ -467,8 +422,8 @@ static pid_t popFront(pid_t *q, char *qID) {
 }
 
 
-//initialize queues with value of 0
-static void initializeQs() {
+// Initializing all 3 priority queues with value of 0
+ void initializeQs() {
     int i;
     for(i = 0; i < QUEUE_SIZE; i++) {
         queue1[i] = 0;
@@ -485,28 +440,26 @@ static void initializeQs() {
 }
 
 //initialize local PCB struct before child fork
-static void pcbInitialization(void) {
+ void pcbInitialization(void) {
     int i;
     for (i = 0; i < MAX_PCB_CREATED; i++) {
-        pcbGroup[i].processID = 0;
         pcbGroup[i].processID = 0;
         pcbGroup[i].quantumTime = 0;
         pcbGroup[i].burst = 0;
         pcbGroup[i].totalTimeRan = 0;
         pcbGroup[i].spawnTime = 0;
     }
-
 }
 
-static void createAttachShmAndMsgQs() {
+ void createAttachShmAndMsgQs() {
 
     //create message queue id
-    if ((messageQueueID = msgget(messageKey, IPC_CREAT | 0777)) == -1) {
+    if ((msgQueueID = msgget(messageKey, IPC_CREAT | 0666)) == -1) {
         fprintf(stderr, "Error: Failed to create message queue\n");
     }
 
     //create segment and attach memory segment virtual clock
-    if ((clockShmid = shmget(clockKey, sizeof (long long *), 0777 | IPC_CREAT)) == -1) {
+    if ((clockShmid = shmget(clockKey, sizeof (long long *), 0666 | IPC_CREAT)) == -1) {
         fprintf(stderr, "Shared memory segment for virtual clock has failed during creation.\n");
         abort();
     }
@@ -517,7 +470,7 @@ static void createAttachShmAndMsgQs() {
     }
 
     //create segment and attach memory segment for signal recieved flag
-    if ((signalShmid = shmget(signalKey, sizeof (int *), 0777 | IPC_CREAT)) == -1) {
+    if ((signalShmid = shmget(signalKey, sizeof (int *), 0666 | IPC_CREAT)) == -1) {
         fprintf(stderr, "Shared memory segment for signal flag has failed during creation.\n");
         abort();
     }
@@ -527,7 +480,7 @@ static void createAttachShmAndMsgQs() {
         abort();
     }
     //create segment and attach memory segment for process control block (PCB) group
-    if ((pcbGroupShmid = shmget(pcbGroupKey, (sizeof(*pcbGroup) * MAX_PCB_CREATED), 0777 | IPC_CREAT)) == -1) {
+    if ((pcbGroupShmid = shmget(pcbGroupKey, (sizeof(*pcbGroup) * MAX_PCB_CREATED), 0666 | IPC_CREAT)) == -1) {
         fprintf(stderr, "Shared memory segment for process control block (PCB) has failed during creation.\n");
         abort();
     }
@@ -538,7 +491,7 @@ static void createAttachShmAndMsgQs() {
     }
 
     //create segment and attach memory segment for process control block (PCB) group
-    if ((scheduleShmid = shmget(scheduleKey, sizeof(pid_t*), 0777 | IPC_CREAT)) == -1) {
+    if ((scheduleShmid = shmget(scheduleKey, sizeof(pid_t*), 0666 | IPC_CREAT)) == -1) {
         fprintf(stderr, "Shared memory segment for process control block (PCB) has failed during creation.\n");
         abort();
     }
@@ -552,12 +505,12 @@ static void createAttachShmAndMsgQs() {
 void detachShmAndDeleteMsgQ() {
 
     //Deleting message Q
-    msgctl(messageQueueID, IPC_RMID, NULL);
+    msgctl(msgQueueID, IPC_RMID, NULL);
 
     //Detaching and deleting shmemory
     if (shmdt(virtualClock) == -1) {
         fprintf(stderr, "Error: Failed to detach memory segment virtual clock\n");
-    };
+    }
 
     if (shmctl(clockShmid, IPC_RMID, NULL) == -1) {
         fprintf(stderr, "Error: Failed to remove memory segment %i for virtual clock\n", clockShmid);
@@ -565,14 +518,14 @@ void detachShmAndDeleteMsgQ() {
 
     if (shmdt(signalRecieved) == -1) {
         fprintf(stderr, "Error: Failed to detach memory segment for signal flag\n");
-    };
+    }
 
     if (shmctl(signalShmid, IPC_RMID, NULL) == -1) {
         fprintf(stderr, "Error: Failed to remove memory segment %i for signal flag\n", signalShmid);
     }
     if (shmdt(pcbGroup) == -1) {
         fprintf(stderr, "Error: Failed to detach memory segment for PCB array\n");
-    };
+    }
 
     if (shmctl(pcbGroupShmid, IPC_RMID, NULL) == -1) {
         fprintf(stderr, "Error: Failed to remove memory segment %i for PCB array\n", signalShmid);
@@ -580,7 +533,7 @@ void detachShmAndDeleteMsgQ() {
 
     if (shmdt(scheduledProcess) == -1) {
         fprintf(stderr, "Error: Failed to detach memory segment scheduled process ID\n");
-    };
+    }
 
     if (shmctl(scheduleShmid, IPC_RMID, NULL) == -1) {
         fprintf(stderr, "Error: Failed to remove memory segment %i for scheduled process ID\n", pcbGroupShmid);
@@ -588,7 +541,7 @@ void detachShmAndDeleteMsgQ() {
 }
 
 /* Handling of interrupts and the alarm */
-static void interruptHandler(int SIG) {
+ void interruptHandler(int SIG) {
     signal(SIGQUIT, SIG_IGN);
     signal(SIGINT, SIG_IGN);
 
@@ -602,7 +555,7 @@ static void interruptHandler(int SIG) {
 }
 
 //signals children to terminate and cleans up master
-static void cleanup() {
+ void cleanup() {
     signal(SIGQUIT, SIG_IGN);
     *signalRecieved = 0;
 
@@ -612,7 +565,7 @@ static void cleanup() {
     //wait for children to terminate
     child_pid = wait(&childStatus);
 
-    //eliminate shared resources
+    //End the shared resources
     detachShmAndDeleteMsgQ();
 	
 	fprintf(fp, "OSS: Ending now.\n");
@@ -635,14 +588,14 @@ void printHelpMenu() {
 }
 
 //print report for run
-static void printFinalStats(void) {
+ void printFinalStats(void) {
 
 	printf("*******************************************************************\n");
     printf("Total Idle time of CPU: %llu.%09llu\n",idleTime / NANOPERSECOND, idleTime % NANOPERSECOND);
 	fprintf(fp, "Total Idle time of CPU: %llu.%09llu\n",idleTime / NANOPERSECOND, idleTime % NANOPERSECOND);
     
-	printf("Average Turn Around Time: %llu.%09llu\n", (totalProcessLifeTime / totalNumProcesses) / NANOPERSECOND, (totalProcessLifeTime / totalNumProcesses) % NANOPERSECOND);
-    fprintf(fp, "Average Turn Around Time: %llu.%09llu\n", (totalProcessLifeTime / totalNumProcesses) / NANOPERSECOND, (totalProcessLifeTime / totalNumProcesses) % NANOPERSECOND);
+	printf("Average Turn Around Time: %llu.%09llu\n", (timeProcessLifespan / totalNumProcesses) / NANOPERSECOND, (timeProcessLifespan / totalNumProcesses) % NANOPERSECOND);
+    fprintf(fp, "Average Turn Around Time: %llu.%09llu\n", (timeProcessLifespan / totalNumProcesses) / NANOPERSECOND, (timeProcessLifespan / totalNumProcesses) % NANOPERSECOND);
     
 	printf("Average Time Waiting in Queue: %llu.%09llu\n",(processWaitTime / totalNumProcesses) / NANOPERSECOND, (processWaitTime / totalNumProcesses) % NANOPERSECOND );
     fprintf(fp, "Average Time Waiting in Queue: %llu.%09llu\n",(processWaitTime / totalNumProcesses) / NANOPERSECOND, (processWaitTime / totalNumProcesses) % NANOPERSECOND );

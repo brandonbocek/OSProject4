@@ -24,16 +24,33 @@
 #include <sys/ipc.h>
 
 //static constants
-static const key_t clockKey = 5235423;
-static const key_t signalKey = 1562345;
-static const key_t scheduleKey = 823458;
-static const key_t messageKey = 6547345;
-static const key_t pcbGroupKey = 783452;
-static const int MAX_SLAVES = 20;
+static const key_t pcbGroupKey = 438543;
+static const key_t clockKey = 234543;
+static const key_t signalKey = 465365;
+static const key_t messageKey = 136532;
+static const key_t scheduleKey = 764346;
 
 //static protoypes
+static void initializeQs();
+static void forkAndExecChild();
 static void signalHandler(int);
 static void killAllChildProcesses(int);
+static pid_t getScheduledProcessPid();
+static void interruptHandler(int);
+static void updateProcessInfoAfterRunning(int);
+static void pcbInitialization();
+static int waitForMessageFromChild(int);
+static bool processShouldBeMoved(pid_t *q, int index, int queueNum);
+static void moveSomeProcessesToAnotherQ();
+static void pushFront(pid_t, pid_t*, char*);
+static void pushRear(pid_t, pid_t*, char*, int);
+static pid_t getPIDfromQ(pid_t *m ,char*);
+static void createAttachShmAndMsgQs();
+static void updateStatsForFinalReport(int);
+static void printHelpMenu();
+static void printFinalStats();
+static void detachShmAndDeleteMsgQ();
+static void cleanup();
 
 //process control block 
 typedef struct PCB {
@@ -43,7 +60,6 @@ typedef struct PCB {
 	long long burst;
 	long long queueSpecificTime;
 	long long spawnTime;
-	long long quantum;
 	int toDoRandomNum; 
 } PCB;
 

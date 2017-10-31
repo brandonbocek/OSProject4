@@ -1,22 +1,21 @@
 
 #include "scheduler.h"
 
-//static constants
-static const int CHILD_TIMEOUT = 10;
+#define CHILD_TIMEOUT 10
 
 //static variables
-static long long *virtualClock; //virtual clock in nanoseconds
-static int *signalRecieved; //signal flag
-static struct PCB *pcbGroup; //group of process ctl blocks
-static pid_t *scheduledProcess;
-static int clockShmid, signalShmid, pcbGroupShmid,scheduleShmid;
-static int messageQueueID;
-static pid_t user_pid;
-static int timeoutValue;
-static int processNumber;
-static int childNum;
-static int processDuration;
-static int notFinished;
+long long *virtualClock; //virtual clock in nanoseconds
+int *signalRecieved; //signal flag
+struct PCB *pcbGroup; //group of process ctl blocks
+pid_t *scheduledProcess;
+int clockShmid, signalShmid, pcbGroupShmid,scheduleShmid;
+int messageQueueID;
+pid_t user_pid;
+int timeoutValue;
+int processNumber;
+int childNum;
+int processDuration;
+int notFinished;
 
 int main(int argc, char **argv) {
 
@@ -65,7 +64,7 @@ int main(int argc, char **argv) {
     do {
 
         while(*scheduledProcess != getpid() && *signalRecieved);
-		
+		printf("The process number is %d\n", processNumber);
 		// determine what is to happen with the process.
 		switch(pcbGroup[processNumber].toDoRandomNum) {
 			case 0:
@@ -95,9 +94,9 @@ int main(int argc, char **argv) {
 		}
 		
 		if(willUseEntireQuantum) {
-			processDuration = pcbGroup[processNumber].quantum;
+			processDuration = pcbGroup[processNumber].quantumTime;
 		} else{
-			processDuration = pcbGroup[processNumber].quantum * p/100;
+			processDuration = pcbGroup[processNumber].quantumTime * p/100;
 		}
 		
         pcbGroup[processNumber].burst = processDuration;
@@ -144,14 +143,14 @@ endTheProcessNow:
 
 
 //recieves signal from master to quit process and kill child
-static void signalHandler(int sig) {
+void signalHandler(int sig) {
     printf("Child %d terminates now\n", processNumber);
     kill(user_pid, SIGKILL);
 }
 
 // Clean up
-static void killAllChildProcesses(int sig) {
-    printf("Slave %d didn't terminate properly but is now\n", processNumber);
+void killAllChildProcesses(int sig) {
+    printf("Slave %d didn't end correctly but is ending now.\n", processNumber);
     kill(user_pid, SIGTERM);
     sleep(1);
     kill(user_pid, SIGKILL);
