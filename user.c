@@ -1,12 +1,12 @@
 
 #include "scheduler.h"
 
-#define CHILD_TIMEOUT 10
+#define ALARM_TIME_CHILD 10
 
-//static variables
-long long *virtualClock; //virtual clock in nanoseconds
-int *signalRecieved; //signal flag
-struct PCB *pcbGroup; //group of process ctl blocks
+//Global Variables
+long long *virtualClock;
+int *signalRecieved;
+struct PCB *pcbGroup;
 pid_t *scheduledProcess;
 int clockShmid, signalShmid, pcbGroupShmid,scheduleShmid;
 int messageQueueID;
@@ -41,21 +41,22 @@ int main(int argc, char **argv) {
         abort();
     }
     if ((pcbGroup = (struct PCB *) shmat(pcbGroupShmid, NULL, 0)) == (void *) - 1) {
-        fprintf(stderr, "Error: Failed to attach memory segment %i for the process control block (PCB)\n", pcbGroupShmid);
+        fprintf(stderr, "Error: Failed to attach memory segment %i for the PCB\n", pcbGroupShmid);
         abort();
     }
 
     if ((scheduledProcess = (pid_t *) shmat(scheduleShmid, NULL, 0)) == (void *) - 1) {
-        fprintf(stderr, "Error: Failed to attach memory segment %i for the process control block (PCB)\n", scheduleShmid);
+        fprintf(stderr, "Error: Failed to attach memory segment %i for the PCB\n", scheduleShmid);
         abort();
     }
 
-    //initialize signal handlers
+    //initializing signal handlers
     signal(SIGINT, SIG_IGN);
     signal(SIGQUIT, signalHandler);
     signal(SIGALRM, killAllChildProcesses);
-    alarm(CHILD_TIMEOUT); //gives child 10 seconds to process or terminates
-
+	
+	// child process will end in 10 seconds
+    alarm(ALARM_TIME_CHILD);
 
     notFinished = 1;
 	int r, s, p, willUseEntireQuantum = 1, processIsCompleted;
@@ -64,7 +65,7 @@ int main(int argc, char **argv) {
     do {
 
         while(*scheduledProcess != getpid() && *signalRecieved);
-		printf("The process number is %d\n", processNumber);
+	//	printf("The toDoRandomNumber is %d\n", pcbGroup[processNumber].toDoRandomNum);
 		// determine what is to happen with the process.
 		switch(pcbGroup[processNumber].toDoRandomNum) {
 			case 0:
@@ -72,7 +73,6 @@ int main(int argc, char **argv) {
 				notFinished = 0;
 				pcbGroup[processNumber].quantumTime = 0;
 				pcbGroup[processNumber].processID = 0;
-				goto endTheProcessNow;
 				break;
 			case 1:
 				willUseEntireQuantum = 1;
@@ -117,7 +117,7 @@ int main(int argc, char **argv) {
 
 		(*virtualClock) += processDuration;
 
-		//Sending message to the master
+		//Sending message to the master so oss can schedule another process
 		cMsg.mType = 3;
 		sprintf(cMsg.infoOfUser.msgText, "%d", processNumber);
 
@@ -129,13 +129,12 @@ int main(int argc, char **argv) {
 
     } while (notFinished && (*signalRecieved));
 
-    printf("Child %d has finished processing\n", pcbGroup[processNumber].processID);
+    printf("Child: with PID: %d has finished processing\n", pcbGroup[processNumber].processID);
 	
 	// If process is set to terminate it goes straight to here
-endTheProcessNow:
     // terminating the process
     kill(user_pid, SIGTERM);
-    sleep(1);
+    sleep(2);
     kill(user_pid, SIGKILL);
 
 
@@ -150,7 +149,7 @@ void signalHandler(int sig) {
 
 // Clean up
 void killAllChildProcesses(int sig) {
-    printf("Slave %d didn't end correctly but is ending now.\n", processNumber);
+    printf("Child %d didn't end correctly but is ending now.\n", processNumber);
     kill(user_pid, SIGTERM);
     sleep(1);
     kill(user_pid, SIGKILL);

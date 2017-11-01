@@ -8,7 +8,79 @@ To compile: type 'make' or 'make all'
 To run: type   './oss'
 			or './oss -h' for the help menu to display
 			or './oss -l file to write to'
+			
+deleting executables: type 'make clean'
 
 Overview:
 
 	The program ends when the user gives a control-c signal.
+	Or after 20 seconds in the virtual clock. Not 20 real seconds
+	though.
+
+	The program begins with 3 priority queues which are arrays
+	of process id's and an array of structs representing the
+	process control blocks. Child processes are forked every 0-2
+	seconds and placed into an index in the pcb array.
+
+	They are scheduled in accordance to the harsh scheduling algorithm
+	which is based on constants alpha and beta and the average 
+	wait time in the queue. When the process in the highest 
+	priority queue is scheduled it is sent a signal to stop waiting
+	and the process can run for all or part of its quantum based on random
+	numbers generated in user.c
+
+	After the program ends the events and final stats are displayed to the user
+	in the log file. This info is also on the console at run time.
+	
+	Warning: project is not perfect and I don't have time to fix it.
+	It seems to be generating the same process and completing it over and over again.
+	So the scheduling algorithm never gets a chance to be called when it runs.
+
+-bash-4.2$ git log
+commit c001bedec3f501fef7a3716de8ee2e3ff853e759
+Author: Brandon Bocek <o2-bocek@hoare7.cs.umsl.edu>
+Date:   Tue Oct 31 12:46:17 2017 -0500
+
+    16th commit
+
+commit 98406e679474a48d02c96b3759ff370fb2268c70
+Author: Brandon Bocek <o2-bocek@hoare7.cs.umsl.edu>
+Date:   Mon Oct 30 19:19:43 2017 -0500
+
+    14th commit
+
+commit 3f40731a7e60ef735eb1276cb1cc5059ec9c9186
+Author: Brandon Bocek <o2-bocek@hoare7.cs.umsl.edu>
+Date:   Wed Oct 25 15:57:23 2017 -0500
+
+    13th commit
+
+commit 10c0488eff984f64c5283c638e4db9501a46c323
+Author: Brandon Bocek <o2-bocek@hoare7.cs.umsl.edu>
+Date:   Wed Oct 25 14:29:55 2017 -0500
+
+    12th commit
+
+commit 9bdacbac44dad28bd0c01a8b4b2b3af0c8113839
+Author: Brandon Bocek <o2-bocek@hoare7.cs.umsl.edu>
+Date:   Wed Oct 25 13:46:27 2017 -0500
+
+    11th commit
+
+commit 77509740c14f341a077b95b16e947c80f1c5dfe6
+Author: Brandon Bocek <o2-bocek@hoare7.cs.umsl.edu>
+Date:   Wed Oct 25 12:30:01 2017 -0500
+
+    tenth commit
+
+commit abe86e883880f0bf032871727f63741c39f6e1dc
+Author: Brandon Bocek <o2-bocek@hoare7.cs.umsl.edu>
+Date:   Wed Oct 25 11:46:08 2017 -0500
+
+    ninth commit
+
+commit 6d06248f01d19de2ad513d897c717a213db41242
+Author: Brandon Bocek <o2-bocek@hoare7.cs.umsl.edu>
+Date:   Wed Oct 25 11:09:02 2017 -0500
+
+    eighth commit

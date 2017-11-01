@@ -1,84 +1,706 @@
-USER: #30250 received scheduling message @ 000.054534743
-USER: with pid:30250 entered the critical section at 000.54534743
-USER: #30250 requesting control @ 000.054534743
-USER: #30250 began running @ 000.180563720
-USER: #30250 completed @ 000.185534709
-USER: with pid:30250 exited critical section at 000.185534709
-USER: #30250 quitting and relinquishing control @ 000.185534709
-USER: #30251 received scheduling message @ 002.223000438
-USER: with pid:30251 entered the critical section at 002.223000438
-USER: #30251 requesting control @ 002.223000438
-USER: #30251 began running @ 002.345000075
-USER: #30251 completed @ 002.358021417
-USER: with pid:30251 exited critical section at 002.358022531
-USER: #30251 quitting and relinquishing control @ 002.358028550
-USER: #30252 received scheduling message @ 003.150000119
-USER: with pid:30252 entered the critical section at 003.150000119
-USER: #30252 requesting control @ 003.150000119
-USER: #30252 began running @ 003.267000019
-USER: #30252 completed @ 003.277999954
-USER: with pid:30252 exited critical section at 003.277999954
-USER: #30252 quitting and relinquishing control @ 003.277999954
-USER: #30264 received scheduling message @ 004.146065229
-USER: with pid:30264 entered the critical section at 004.146072986
-USER: #30264 requesting control @ 004.146085140
-USER: #30264 began running @ 004.246319744
-USER: #30264 completed @ 004.256419193
-USER: with pid:30264 exited critical section at 004.256420215
-USER: #30264 quitting and relinquishing control @ 004.256425613
-USER: #30276 received scheduling message @ 006.410142180
-USER: with pid:30276 entered the critical section at 006.410152527
-USER: #30276 requesting control @ 006.410161822
-USER: #30276 began running @ 006.510382583
-USER: #30276 completed @ 006.520495742
-USER: with pid:30276 exited critical section at 006.520496927
-USER: #30276 quitting and relinquishing control @ 006.520502528
-USER: #30280 received scheduling message @ 008.324549911
-USER: with pid:30280 entered the critical section at 008.324570961
-USER: #30280 requesting control @ 008.324583031
-USER: #30280 began running @ 008.424743325
-USER: #30280 completed @ 008.434851701
-USER: with pid:30280 exited critical section at 008.434852816
-USER: #30280 quitting and relinquishing control @ 008.434858357
-USER: #30287 received scheduling message @ 010.238301115
-USER: with pid:30287 entered the critical section at 010.238311633
-USER: #30287 requesting control @ 010.238321688
-USER: #30287 began running @ 010.338506450
-USER: #30287 completed @ 010.348614161
-USER: with pid:30287 exited critical section at 010.348615301
-USER: #30287 quitting and relinquishing control @ 010.348621001
-USER: #30289 received scheduling message @ 011.101247857
-USER: with pid:30289 entered the critical section at 011.101324118
-USER: #30289 requesting control @ 011.101341176
-USER: #30289 began running @ 011.201457528
-USER: #30289 completed @ 011.211587299
-USER: with pid:30289 exited critical section at 011.211588836
-USER: #30289 quitting and relinquishing control @ 011.211596938
-USER: #30290 received scheduling message @ 011.613646745
-USER: with pid:30290 entered the critical section at 011.613657803
-USER: #30290 requesting control @ 011.613670813
-USER: #30290 began running @ 011.713808540
-USER: #30290 completed @ 011.723921686
-USER: with pid:30290 exited critical section at 011.723922789
-USER: #30290 quitting and relinquishing control @ 011.723928632
-USER: #30294 received scheduling message @ 013.176897493
-USER: with pid:30294 entered the critical section at 013.176907670
-USER: #30294 requesting control @ 013.176918033
-USER: #30294 began running @ 013.277017590
-USER: #30294 completed @ 013.287116500
-USER: with pid:30294 exited critical section at 013.287117517
-USER: #30294 quitting and relinquishing control @ 013.287122721
-USER: #30298 received scheduling message @ 015.440881094
-USER: with pid:30298 entered the critical section at 015.440881094
-USER: #30298 requesting control @ 015.440881094
-USER: #30298 began running @ 015.541082616
-USER: #30298 completed @ 015.551216057
-USER: with pid:30298 exited critical section at 015.551217282
-USER: #30298 quitting and relinquishing control @ 015.551222992
-USER: #30299 received scheduling message @ 015.953701909
-USER: with pid:30299 entered the critical section at 015.953710997
-USER: #30299 requesting control @ 015.953720488
-USER: #30299 began running @ 015.053878047
-USER: #30299 completed @ 015.063983484
-USER: with pid:30299 exited critical section at 015.63984606
-USER: #30299 quitting and relinquishing control @ 015.063990447
+OSS: Generating process with PID 310 with duration 1.000000000  at time 0.000000000
+OSS: Dispatching process 310 from Queue 1 at time 0.000000000
+OSS: Assigning quantum to process with PID:310
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Generating process with PID 311 with duration 1.000000000  at time 1.804289518
+OSS: Dispatching process 310 from Queue 1 at time 0.000000000
+OSS: Assigning quantum to process with PID:310
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 311 from Queue 1 at time 1.804289518
+OSS: Assigning quantum to process with PID:311
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Generating process with PID 312 with duration 1.000000000  at time 2.804290120
+OSS: Dispatching process 310 from Queue 1 at time 0.000000000
+OSS: Assigning quantum to process with PID:310
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 311 from Queue 1 at time 1.804289518
+OSS: Assigning quantum to process with PID:311
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 312 from Queue 1 at time 2.804289819
+OSS: Assigning quantum to process with PID:312
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Generating process with PID 313 with duration 1.000000000  at time 4.044030307
+OSS: Dispatching process 310 from Queue 1 at time 0.000000000
+OSS: Assigning quantum to process with PID:310
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 311 from Queue 1 at time 1.804289518
+OSS: Assigning quantum to process with PID:311
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 312 from Queue 1 at time 2.804289819
+OSS: Assigning quantum to process with PID:312
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 313 from Queue 1 at time 4.044030006
+OSS: Assigning quantum to process with PID:313
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Generating process with PID 314 with duration 1.000000000  at time 5.152742179
+OSS: Dispatching process 310 from Queue 1 at time 0.000000000
+OSS: Assigning quantum to process with PID:310
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 311 from Queue 1 at time 1.804289518
+OSS: Assigning quantum to process with PID:311
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 312 from Queue 1 at time 2.804289819
+OSS: Assigning quantum to process with PID:312
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 313 from Queue 1 at time 4.044030006
+OSS: Assigning quantum to process with PID:313
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 314 from Queue 1 at time 5.152741878
+OSS: Assigning quantum to process with PID:314
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Generating process with PID 315 with duration 1.000000000  at time 6.152742480
+OSS: Dispatching process 310 from Queue 1 at time 0.000000000
+OSS: Assigning quantum to process with PID:310
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 311 from Queue 1 at time 1.804289518
+OSS: Assigning quantum to process with PID:311
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 312 from Queue 1 at time 2.804289819
+OSS: Assigning quantum to process with PID:312
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 313 from Queue 1 at time 4.044030006
+OSS: Assigning quantum to process with PID:313
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 314 from Queue 1 at time 5.152741878
+OSS: Assigning quantum to process with PID:314
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 315 from Queue 1 at time 6.152742179
+OSS: Assigning quantum to process with PID:315
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Generating process with PID 316 with duration 1.000000000  at time 7.392482667
+OSS: Dispatching process 310 from Queue 1 at time 0.000000000
+OSS: Assigning quantum to process with PID:310
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 311 from Queue 1 at time 1.804289518
+OSS: Assigning quantum to process with PID:311
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 312 from Queue 1 at time 2.804289819
+OSS: Assigning quantum to process with PID:312
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 313 from Queue 1 at time 4.044030006
+OSS: Assigning quantum to process with PID:313
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 314 from Queue 1 at time 5.152741878
+OSS: Assigning quantum to process with PID:314
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 315 from Queue 1 at time 6.152742179
+OSS: Assigning quantum to process with PID:315
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 316 from Queue 1 at time 7.392482366
+OSS: Assigning quantum to process with PID:316
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Generating process with PID 317 with duration 1.000000000  at time 8.501194539
+OSS: Dispatching process 310 from Queue 1 at time 0.000000000
+OSS: Assigning quantum to process with PID:310
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 311 from Queue 1 at time 1.804289518
+OSS: Assigning quantum to process with PID:311
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 312 from Queue 1 at time 2.804289819
+OSS: Assigning quantum to process with PID:312
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 313 from Queue 1 at time 4.044030006
+OSS: Assigning quantum to process with PID:313
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 314 from Queue 1 at time 5.152741878
+OSS: Assigning quantum to process with PID:314
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 315 from Queue 1 at time 6.152742179
+OSS: Assigning quantum to process with PID:315
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 316 from Queue 1 at time 7.392482366
+OSS: Assigning quantum to process with PID:316
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 317 from Queue 1 at time 8.501194238
+OSS: Assigning quantum to process with PID:317
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Generating process with PID 318 with duration 1.000000000  at time 9.501194840
+OSS: Dispatching process 310 from Queue 1 at time 0.000000000
+OSS: Assigning quantum to process with PID:310
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 311 from Queue 1 at time 1.804289518
+OSS: Assigning quantum to process with PID:311
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 312 from Queue 1 at time 2.804289819
+OSS: Assigning quantum to process with PID:312
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 313 from Queue 1 at time 4.044030006
+OSS: Assigning quantum to process with PID:313
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 314 from Queue 1 at time 5.152741878
+OSS: Assigning quantum to process with PID:314
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 315 from Queue 1 at time 6.152742179
+OSS: Assigning quantum to process with PID:315
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 316 from Queue 1 at time 7.392482366
+OSS: Assigning quantum to process with PID:316
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 317 from Queue 1 at time 8.501194238
+OSS: Assigning quantum to process with PID:317
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 318 from Queue 1 at time 9.501194539
+OSS: Assigning quantum to process with PID:318
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Generating process with PID 319 with duration 1.000000000  at time 10.740935027
+OSS: Dispatching process 310 from Queue 1 at time 0.000000000
+OSS: Assigning quantum to process with PID:310
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 311 from Queue 1 at time 1.804289518
+OSS: Assigning quantum to process with PID:311
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 312 from Queue 1 at time 2.804289819
+OSS: Assigning quantum to process with PID:312
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 313 from Queue 1 at time 4.044030006
+OSS: Assigning quantum to process with PID:313
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 314 from Queue 1 at time 5.152741878
+OSS: Assigning quantum to process with PID:314
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 315 from Queue 1 at time 6.152742179
+OSS: Assigning quantum to process with PID:315
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 316 from Queue 1 at time 7.392482366
+OSS: Assigning quantum to process with PID:316
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 317 from Queue 1 at time 8.501194238
+OSS: Assigning quantum to process with PID:317
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 318 from Queue 1 at time 9.501194539
+OSS: Assigning quantum to process with PID:318
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 319 from Queue 1 at time 10.740934726
+OSS: Assigning quantum to process with PID:319
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Generating process with PID 320 with duration 1.000000000  at time 11.849646899
+OSS: Dispatching process 310 from Queue 1 at time 0.000000000
+OSS: Assigning quantum to process with PID:310
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 311 from Queue 1 at time 1.804289518
+OSS: Assigning quantum to process with PID:311
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 312 from Queue 1 at time 2.804289819
+OSS: Assigning quantum to process with PID:312
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 313 from Queue 1 at time 4.044030006
+OSS: Assigning quantum to process with PID:313
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 314 from Queue 1 at time 5.152741878
+OSS: Assigning quantum to process with PID:314
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 315 from Queue 1 at time 6.152742179
+OSS: Assigning quantum to process with PID:315
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 316 from Queue 1 at time 7.392482366
+OSS: Assigning quantum to process with PID:316
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 317 from Queue 1 at time 8.501194238
+OSS: Assigning quantum to process with PID:317
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 318 from Queue 1 at time 9.501194539
+OSS: Assigning quantum to process with PID:318
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 319 from Queue 1 at time 10.740934726
+OSS: Assigning quantum to process with PID:319
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 320 from Queue 1 at time 11.849646598
+OSS: Assigning quantum to process with PID:320
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Generating process with PID 321 with duration 1.000000000  at time 12.849647200
+OSS: Dispatching process 310 from Queue 1 at time 0.000000000
+OSS: Assigning quantum to process with PID:310
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 311 from Queue 1 at time 1.804289518
+OSS: Assigning quantum to process with PID:311
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 312 from Queue 1 at time 2.804289819
+OSS: Assigning quantum to process with PID:312
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 313 from Queue 1 at time 4.044030006
+OSS: Assigning quantum to process with PID:313
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 314 from Queue 1 at time 5.152741878
+OSS: Assigning quantum to process with PID:314
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 315 from Queue 1 at time 6.152742179
+OSS: Assigning quantum to process with PID:315
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 316 from Queue 1 at time 7.392482366
+OSS: Assigning quantum to process with PID:316
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 317 from Queue 1 at time 8.501194238
+OSS: Assigning quantum to process with PID:317
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 318 from Queue 1 at time 9.501194539
+OSS: Assigning quantum to process with PID:318
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 319 from Queue 1 at time 10.740934726
+OSS: Assigning quantum to process with PID:319
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 320 from Queue 1 at time 11.849646598
+OSS: Assigning quantum to process with PID:320
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 321 from Queue 1 at time 12.849646899
+OSS: Assigning quantum to process with PID:321
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Generating process with PID 322 with duration 1.000000000  at time 14.089387387
+OSS: Dispatching process 310 from Queue 1 at time 0.000000000
+OSS: Assigning quantum to process with PID:310
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 311 from Queue 1 at time 1.804289518
+OSS: Assigning quantum to process with PID:311
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 312 from Queue 1 at time 2.804289819
+OSS: Assigning quantum to process with PID:312
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 313 from Queue 1 at time 4.044030006
+OSS: Assigning quantum to process with PID:313
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 314 from Queue 1 at time 5.152741878
+OSS: Assigning quantum to process with PID:314
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 315 from Queue 1 at time 6.152742179
+OSS: Assigning quantum to process with PID:315
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 316 from Queue 1 at time 7.392482366
+OSS: Assigning quantum to process with PID:316
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 317 from Queue 1 at time 8.501194238
+OSS: Assigning quantum to process with PID:317
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 318 from Queue 1 at time 9.501194539
+OSS: Assigning quantum to process with PID:318
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 319 from Queue 1 at time 10.740934726
+OSS: Assigning quantum to process with PID:319
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 320 from Queue 1 at time 11.849646598
+OSS: Assigning quantum to process with PID:320
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 321 from Queue 1 at time 12.849646899
+OSS: Assigning quantum to process with PID:321
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 322 from Queue 1 at time 14.089387086
+OSS: Assigning quantum to process with PID:322
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Generating process with PID 323 with duration 1.000000000  at time 15.198099259
+OSS: Dispatching process 310 from Queue 1 at time 0.000000000
+OSS: Assigning quantum to process with PID:310
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 311 from Queue 1 at time 1.804289518
+OSS: Assigning quantum to process with PID:311
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 312 from Queue 1 at time 2.804289819
+OSS: Assigning quantum to process with PID:312
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 313 from Queue 1 at time 4.044030006
+OSS: Assigning quantum to process with PID:313
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 314 from Queue 1 at time 5.152741878
+OSS: Assigning quantum to process with PID:314
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 315 from Queue 1 at time 6.152742179
+OSS: Assigning quantum to process with PID:315
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 316 from Queue 1 at time 7.392482366
+OSS: Assigning quantum to process with PID:316
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 317 from Queue 1 at time 8.501194238
+OSS: Assigning quantum to process with PID:317
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 318 from Queue 1 at time 9.501194539
+OSS: Assigning quantum to process with PID:318
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 319 from Queue 1 at time 10.740934726
+OSS: Assigning quantum to process with PID:319
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 320 from Queue 1 at time 11.849646598
+OSS: Assigning quantum to process with PID:320
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 321 from Queue 1 at time 12.849646899
+OSS: Assigning quantum to process with PID:321
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 322 from Queue 1 at time 14.089387086
+OSS: Assigning quantum to process with PID:322
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 323 from Queue 1 at time 15.198098958
+OSS: Assigning quantum to process with PID:323
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Generating process with PID 324 with duration 1.000000000  at time 16.198099560
+OSS: Dispatching process 310 from Queue 1 at time 0.000000000
+OSS: Assigning quantum to process with PID:310
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 311 from Queue 1 at time 1.804289518
+OSS: Assigning quantum to process with PID:311
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 312 from Queue 1 at time 2.804289819
+OSS: Assigning quantum to process with PID:312
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 313 from Queue 1 at time 4.044030006
+OSS: Assigning quantum to process with PID:313
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 314 from Queue 1 at time 5.152741878
+OSS: Assigning quantum to process with PID:314
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 315 from Queue 1 at time 6.152742179
+OSS: Assigning quantum to process with PID:315
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 316 from Queue 1 at time 7.392482366
+OSS: Assigning quantum to process with PID:316
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 317 from Queue 1 at time 8.501194238
+OSS: Assigning quantum to process with PID:317
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 318 from Queue 1 at time 9.501194539
+OSS: Assigning quantum to process with PID:318
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 319 from Queue 1 at time 10.740934726
+OSS: Assigning quantum to process with PID:319
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 320 from Queue 1 at time 11.849646598
+OSS: Assigning quantum to process with PID:320
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 321 from Queue 1 at time 12.849646899
+OSS: Assigning quantum to process with PID:321
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 322 from Queue 1 at time 14.089387086
+OSS: Assigning quantum to process with PID:322
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 323 from Queue 1 at time 15.198098958
+OSS: Assigning quantum to process with PID:323
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 324 from Queue 1 at time 16.198099259
+OSS: Assigning quantum to process with PID:324
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Generating process with PID 325 with duration 1.000000000  at time 17.437840024
+OSS: Dispatching process 310 from Queue 1 at time 0.000000000
+OSS: Assigning quantum to process with PID:310
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 311 from Queue 1 at time 1.804289518
+OSS: Assigning quantum to process with PID:311
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 312 from Queue 1 at time 2.804289819
+OSS: Assigning quantum to process with PID:312
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 313 from Queue 1 at time 4.044030006
+OSS: Assigning quantum to process with PID:313
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 314 from Queue 1 at time 5.152741878
+OSS: Assigning quantum to process with PID:314
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 315 from Queue 1 at time 6.152742179
+OSS: Assigning quantum to process with PID:315
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 316 from Queue 1 at time 7.392482366
+OSS: Assigning quantum to process with PID:316
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 317 from Queue 1 at time 8.501194238
+OSS: Assigning quantum to process with PID:317
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 318 from Queue 1 at time 9.501194539
+OSS: Assigning quantum to process with PID:318
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 319 from Queue 1 at time 10.740934726
+OSS: Assigning quantum to process with PID:319
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 320 from Queue 1 at time 11.849646598
+OSS: Assigning quantum to process with PID:320
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 321 from Queue 1 at time 12.849646899
+OSS: Assigning quantum to process with PID:321
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 322 from Queue 1 at time 14.089387086
+OSS: Assigning quantum to process with PID:322
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 323 from Queue 1 at time 15.198098958
+OSS: Assigning quantum to process with PID:323
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 324 from Queue 1 at time 16.198099259
+OSS: Assigning quantum to process with PID:324
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 325 from Queue 1 at time 17.437839446
+OSS: Assigning quantum to process with PID:325
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Generating process with PID 326 with duration 1.000000000  at time 18.546552056
+OSS: Dispatching process 310 from Queue 1 at time 0.000000000
+OSS: Assigning quantum to process with PID:310
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 311 from Queue 1 at time 1.804289518
+OSS: Assigning quantum to process with PID:311
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 312 from Queue 1 at time 2.804289819
+OSS: Assigning quantum to process with PID:312
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 313 from Queue 1 at time 4.044030006
+OSS: Assigning quantum to process with PID:313
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 314 from Queue 1 at time 5.152741878
+OSS: Assigning quantum to process with PID:314
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 315 from Queue 1 at time 6.152742179
+OSS: Assigning quantum to process with PID:315
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 316 from Queue 1 at time 7.392482366
+OSS: Assigning quantum to process with PID:316
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 317 from Queue 1 at time 8.501194238
+OSS: Assigning quantum to process with PID:317
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 318 from Queue 1 at time 9.501194539
+OSS: Assigning quantum to process with PID:318
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 319 from Queue 1 at time 10.740934726
+OSS: Assigning quantum to process with PID:319
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 320 from Queue 1 at time 11.849646598
+OSS: Assigning quantum to process with PID:320
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 321 from Queue 1 at time 12.849646899
+OSS: Assigning quantum to process with PID:321
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 322 from Queue 1 at time 14.089387086
+OSS: Assigning quantum to process with PID:322
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 323 from Queue 1 at time 15.198098958
+OSS: Assigning quantum to process with PID:323
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 324 from Queue 1 at time 16.198099259
+OSS: Assigning quantum to process with PID:324
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 325 from Queue 1 at time 17.437839446
+OSS: Assigning quantum to process with PID:325
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 326 from Queue 1 at time 18.546551478
+OSS: Assigning quantum to process with PID:326
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Generating process with PID 327 with duration 1.000000000  at time 19.546552634
+OSS: Dispatching process 310 from Queue 1 at time 0.000000000
+OSS: Assigning quantum to process with PID:310
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 311 from Queue 1 at time 1.804289518
+OSS: Assigning quantum to process with PID:311
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 312 from Queue 1 at time 2.804289819
+OSS: Assigning quantum to process with PID:312
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 313 from Queue 1 at time 4.044030006
+OSS: Assigning quantum to process with PID:313
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 314 from Queue 1 at time 5.152741878
+OSS: Assigning quantum to process with PID:314
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 315 from Queue 1 at time 6.152742179
+OSS: Assigning quantum to process with PID:315
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 316 from Queue 1 at time 7.392482366
+OSS: Assigning quantum to process with PID:316
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 317 from Queue 1 at time 8.501194238
+OSS: Assigning quantum to process with PID:317
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 318 from Queue 1 at time 9.501194539
+OSS: Assigning quantum to process with PID:318
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 319 from Queue 1 at time 10.740934726
+OSS: Assigning quantum to process with PID:319
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 320 from Queue 1 at time 11.849646598
+OSS: Assigning quantum to process with PID:320
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 321 from Queue 1 at time 12.849646899
+OSS: Assigning quantum to process with PID:321
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 322 from Queue 1 at time 14.089387086
+OSS: Assigning quantum to process with PID:322
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 323 from Queue 1 at time 15.198098958
+OSS: Assigning quantum to process with PID:323
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 324 from Queue 1 at time 16.198099259
+OSS: Assigning quantum to process with PID:324
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 325 from Queue 1 at time 17.437839446
+OSS: Assigning quantum to process with PID:325
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 326 from Queue 1 at time 18.546551478
+OSS: Assigning quantum to process with PID:326
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Dispatching process 327 from Queue 1 at time 19.546552056
+OSS: Assigning quantum to process with PID:327
+OSS: Process with PID: 0 just ran for 1.000000000 seconds
+Process 0 completed its scheduled time
+OSS: Finished now.
+Total Idle time of CPU: 2.546552634
+Average Turn Around Time: 1.000000347
+Average Time Waiting in Queue: 0.000000347

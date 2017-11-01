@@ -23,14 +23,17 @@
 #include <sys/types.h>
 #include <sys/ipc.h>
 
-//static constants
+#define MSGSIZE 256
+#define NANOPERSECOND 1000000000
+
+//keys for shared memory
 static const key_t pcbGroupKey = 438543;
 static const key_t clockKey = 234543;
 static const key_t signalKey = 465365;
 static const key_t messageKey = 136532;
 static const key_t scheduleKey = 764346;
 
-//static protoypes
+//
 static void initializeQs();
 static void forkAndExecChild();
 static void signalHandler(int);
@@ -63,19 +66,13 @@ typedef struct PCB {
 	int toDoRandomNum; 
 } PCB;
 
-#define MSGSIZE 256
-#define NANOPERSECOND 1000000000
-
-
 typedef struct childMsg {
-  long mType;
-  struct infoOfUser {
-    pid_t child_pid;
-    int childNum;
-    char msgText[MSGSIZE];
-  }
-  infoOfUser;
-}
-childMsg;
+	long mType;
+	struct infoOfUser {
+    	pid_t child_pid;
+    	int childNum;
+    	char msgText[MSGSIZE];
+	} infoOfUser;
+} childMsg;
 
 #endif
